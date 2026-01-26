@@ -10,6 +10,7 @@ import Testing
 
 struct ClockEngineTests {
     let clockEngine = ClockEngine()
+    let allFiveMinuteLamps: [LampColor] = [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow]
 
     @Test("Seconds lamp lights up when seconds are even and turns off when seconds are odd")
     func testSecondsLamp() {
@@ -78,5 +79,64 @@ struct ClockEngineTests {
         #expect(clockEngine.computeOneHourRow(hours: 9) == allLamps)
         #expect(clockEngine.computeOneHourRow(hours: 14) == allLamps)
         #expect(clockEngine.computeOneHourRow(hours: 19) == allLamps)
+    }
+
+    @Test("In 5-minute row, lamps are lit in yellow based per 5-minute block, and every third lamp is red when lit.")
+    func testFiveMinuteRow() {
+        let allOff: [LampColor] = createFiveMinutesRow(lit: 0)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 0) == allOff)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 1) == allOff)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 4) == allOff)
+
+        let firstLamp: [LampColor] = createFiveMinutesRow(lit: 1)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 5) == firstLamp)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 9) == firstLamp)
+
+        let twoLamps: [LampColor] = createFiveMinutesRow(lit: 2)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 10) == twoLamps)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 14) == twoLamps)
+
+        let threeLamps: [LampColor] = createFiveMinutesRow(lit: 3)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 15) == threeLamps)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 19) == threeLamps)
+
+        let fourLamps: [LampColor] = createFiveMinutesRow(lit: 4)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 20) == fourLamps)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 24) == fourLamps)
+
+        let fiveLamps: [LampColor] = createFiveMinutesRow(lit: 5)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 25) == fiveLamps)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 29) == fiveLamps)
+
+        let sixLamps: [LampColor] = createFiveMinutesRow(lit: 6)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 30) == sixLamps)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 34) == sixLamps)
+
+        let sevenLamps: [LampColor] = createFiveMinutesRow(lit: 7)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 35) == sevenLamps)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 39) == sevenLamps)
+
+        let eigthLamps: [LampColor] = createFiveMinutesRow(lit: 8)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 40) == eigthLamps)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 44) == eigthLamps)
+
+        let nineLamps: [LampColor] = createFiveMinutesRow(lit: 9)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 45) == nineLamps)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 49) == nineLamps)
+
+        let tenLamps: [LampColor] = createFiveMinutesRow(lit: 10)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 50) == tenLamps)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 54) == tenLamps)
+
+        let allLamps: [LampColor] = createFiveMinutesRow(lit: 11)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 55) == allLamps)
+        #expect(clockEngine.computeFiveMinuteRow(minutes: 59) == allLamps)
+    }
+}
+
+private extension ClockEngineTests {
+
+    func createFiveMinutesRow(lit lampsCount: Int) -> [LampColor] {
+        return Array(allFiveMinuteLamps.prefix(lampsCount)) + Array(repeating: .off, count: allFiveMinuteLamps.count - lampsCount)
     }
 }

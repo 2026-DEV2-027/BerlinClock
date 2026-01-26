@@ -33,6 +33,14 @@ struct ClockEngine {
         let activeLamps = hours % 5
         return createRow(totalLamps: 4, activeLamps: activeLamps, color: .red)
     }
+
+    /// Computes the row of colors of the 5-minute lamps. Each lit lamp represents 5 minutes and is yellow, and every three lamp is in red instead of yellow.
+    ///
+    /// - Parameter minutes: The minute part of the time.
+    /// - Returns: The lamp colors.
+    func computeFiveMinuteRow(minutes: Int) -> [LampColor] {
+        return []
+    }
 }
 
 private extension ClockEngine {
