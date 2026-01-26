@@ -22,28 +22,30 @@ struct ClockEngineTests {
         #expect(clockEngine.computeSecondsLamp(seconds: seconds) == .off)
     }
 
-    @Test("In 5-hour row, lamps are lit per 5-hour block")
-    func testFiveHourRow() {
-        let allOff: [LampColor] = [.off, .off, .off, .off]
-        #expect(clockEngine.computeFiveHourRow(hours: 0) == allOff)
-        #expect(clockEngine.computeFiveHourRow(hours: 1) == allOff)
-        #expect(clockEngine.computeFiveHourRow(hours: 4) == allOff)
 
-        let oneLamp: [LampColor] = [.red, .off, .off, .off]
-        #expect(clockEngine.computeFiveHourRow(hours: 5) == oneLamp)
-        #expect(clockEngine.computeFiveHourRow(hours: 9) == oneLamp)
+    @Test("All 5-hour lamps are off before 5 hours", arguments: 0...4)
+    func testFiveHourLampsAreOff(hours: Int) {
+        #expect(clockEngine.computeFiveHourRow(hours: hours) == [.off, .off, .off, .off])
+    }
 
-        let twoLamps: [LampColor] = [.red, .red, .off, .off]
-        #expect(clockEngine.computeFiveHourRow(hours: 10) == twoLamps)
-        #expect(clockEngine.computeFiveHourRow(hours: 14) == twoLamps)
+    @Test("One 5-hour lamp is on between 5 and 9 hours", arguments: 5...9)
+    func testOneFiveHourLampIsOn(hours: Int) {
+        #expect(clockEngine.computeFiveHourRow(hours: hours) == [.red, .off, .off, .off])
+    }
 
-        let threeLamps: [LampColor] = [.red, .red, .red, .off]
-        #expect(clockEngine.computeFiveHourRow(hours: 15) == threeLamps)
-        #expect(clockEngine.computeFiveHourRow(hours: 19) == threeLamps)
+    @Test("Two 5-hour lamps are on between 10 and 14 hours", arguments: 10...14)
+    func testTwoFiveHourLampsAreOn(hours: Int) {
+        #expect(clockEngine.computeFiveHourRow(hours: hours) == [.red, .red, .off, .off])
+    }
 
-        let allLamps: [LampColor] = [.red, .red, .red, .red]
-        #expect(clockEngine.computeFiveHourRow(hours: 20) == allLamps)
-        #expect(clockEngine.computeFiveHourRow(hours: 23) == allLamps)
+    @Test("Three 5-hour lamps are on between 15 and 19 hours", arguments: 15...19)
+    func testThreeFiveHourLampsAreOn(hours: Int) {
+        #expect(clockEngine.computeFiveHourRow(hours: hours) == [.red, .red, .red, .off])
+    }
+
+    @Test("All 5-hour lamps are on from 20 hours", arguments: 20...23)
+    func testAllFiveHourLampsAreOn(hours: Int) {
+        #expect(clockEngine.computeFiveHourRow(hours: hours) == [.red, .red, .red, .red])
     }
 
     @Test("In 1-hour row, lamps are lit based on the remaining hours after the 5-hour lamps")
