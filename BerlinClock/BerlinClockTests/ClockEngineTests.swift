@@ -12,6 +12,8 @@ struct ClockEngineTests {
     let clockEngine = ClockEngine()
     let allFiveMinuteLamps: [LampColor] = [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow]
 
+    // MARK: - Seconds Lamp
+
     @Test("Seconds lamp lights up when seconds are even", arguments: [0, 2, 10, 30, 58])
     func testSecondsLampIsOnWhenEven(seconds: Int) {
         #expect(clockEngine.computeSecondsLamp(seconds: seconds) == .red)
@@ -22,6 +24,7 @@ struct ClockEngineTests {
         #expect(clockEngine.computeSecondsLamp(seconds: seconds) == .off)
     }
 
+    // MARK: - 5-hour Lamps
 
     @Test("All 5-hour lamps are off before 5 hours", arguments: 0...4)
     func testFiveHourLampsAreOff(hours: Int) {
@@ -47,6 +50,8 @@ struct ClockEngineTests {
     func testAllFiveHourLampsAreOn(hours: Int) {
         #expect(clockEngine.computeFiveHourRow(hours: hours) == [.red, .red, .red, .red])
     }
+
+    // MARK: - 1-hour Lamps
 
     @Test("In 1-hour row, lamps are lit based on the remaining hours after the 5-hour lamps")
     func testOneHourRow() {
@@ -84,6 +89,8 @@ struct ClockEngineTests {
         #expect(clockEngine.computeOneHourRow(hours: 14) == allLamps)
         #expect(clockEngine.computeOneHourRow(hours: 19) == allLamps)
     }
+
+    // MARK: - 5-minute Lamps
 
     @Test("In 5-minute row, lamps are lit in yellow based per 5-minute block, and every third lamp is red when lit.")
     func testFiveMinuteRow() {
@@ -136,6 +143,8 @@ struct ClockEngineTests {
         #expect(clockEngine.computeFiveMinuteRow(minutes: 55) == allLamps)
         #expect(clockEngine.computeFiveMinuteRow(minutes: 59) == allLamps)
     }
+
+    // MARK: - 1-minute Lamps
 
     @Test("In 1-minute row, lamps are lit based on the remaining minutes after the 5-minute lamps")
     func testOneMinuteRow() {
