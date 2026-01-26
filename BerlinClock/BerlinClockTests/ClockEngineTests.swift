@@ -156,77 +156,29 @@ struct ClockEngineTests {
 
     // MARK: - 1-minute Lamps
 
-    @Test("In 1-minute row, lamps are lit based on the remaining minutes after the 5-minute lamps")
-    func testOneMinuteRow() {
-        let allOff: [LampColor] = [.off, .off, .off, .off]
-        #expect(clockEngine.computeOneMinuteRow(minutes: 0) == allOff)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 5) == allOff)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 10) == allOff)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 15) == allOff)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 20) == allOff)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 25) == allOff)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 30) == allOff)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 35) == allOff)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 40) == allOff)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 45) == allOff)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 50) == allOff)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 55) == allOff)
+    @Test("All 1-minute lamps are off on minutes ending with 0 or 5", arguments: [0, 5, 30, 55])
+    func testAllOneMinuteLampsAreOff(minutes: Int) {
+        #expect(clockEngine.computeOneMinuteRow(minutes: minutes) == [.off, .off, .off, .off])
+    }
 
-        let oneLamp: [LampColor] = [.yellow, .off, .off, .off]
-        #expect(clockEngine.computeOneMinuteRow(minutes: 1) == oneLamp)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 6) == oneLamp)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 11) == oneLamp)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 16) == oneLamp)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 21) == oneLamp)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 26) == oneLamp)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 31) == oneLamp)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 36) == oneLamp)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 41) == oneLamp)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 46) == oneLamp)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 51) == oneLamp)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 56) == oneLamp)
+    @Test("One 1-minute lamp is on on minutes ending with 1 or 6", arguments: [1, 16, 31, 56])
+    func testSingleOneMinuteLampIsOn(minutes: Int) {
+        #expect(clockEngine.computeOneMinuteRow(minutes: minutes) == [.yellow, .off, .off, .off])
+    }
 
-        let twoLamps: [LampColor] = [.yellow, .yellow, .off, .off]
-        #expect(clockEngine.computeOneMinuteRow(minutes: 2) == twoLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 7) == twoLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 12) == twoLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 17) == twoLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 22) == twoLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 27) == twoLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 32) == twoLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 37) == twoLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 42) == twoLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 47) == twoLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 52) == twoLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 57) == twoLamps)
+    @Test("Two 1-minute lamps are on on minutes ending with 2 or 7", arguments: [2, 27, 32, 57])
+    func testTwoOneMinuteLampsAreOn(minutes: Int) {
+        #expect(clockEngine.computeOneMinuteRow(minutes: minutes) == [.yellow, .yellow, .off, .off])
+    }
 
-        let threeLamps: [LampColor] = [.yellow, .yellow, .yellow, .off]
-        #expect(clockEngine.computeOneMinuteRow(minutes: 3) == threeLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 8) == threeLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 13) == threeLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 18) == threeLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 23) == threeLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 28) == threeLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 33) == threeLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 38) == threeLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 43) == threeLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 48) == threeLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 53) == threeLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 58) == threeLamps)
+    @Test("Three 1-minute lamps are on on minutes ending with 3 or 8", arguments: [3, 18, 33, 58])
+    func testThreeOneMinuteLampsAreOn(minutes: Int) {
+        #expect(clockEngine.computeOneMinuteRow(minutes: minutes) == [.yellow, .yellow, .yellow, .off])
+    }
 
-        let allLamps: [LampColor] = [.yellow, .yellow, .yellow, .yellow]
-        #expect(clockEngine.computeOneMinuteRow(minutes: 4) == allLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 9) == allLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 14) == allLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 19) == allLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 24) == allLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 29) == allLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 34) == allLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 39) == allLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 44) == allLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 49) == allLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 54) == allLamps)
-        #expect(clockEngine.computeOneMinuteRow(minutes: 59) == allLamps)
+    @Test("All 1-minute lamps are on on minutes ending with 4 or 9", arguments: [4, 29, 34, 59])
+    func testAllOneMinuteLampsAreOn(minutes: Int) {
+        #expect(clockEngine.computeOneMinuteRow(minutes: minutes) == [.yellow, .yellow, .yellow, .yellow])
     }
 }
 
