@@ -33,7 +33,7 @@ struct ClockEngine {
         return row
     }
 
-    /// Computes the row of colors of the 1-hour lamps. Those lamps represents the last 4 hours of the day.
+    /// Computes the row of colors of the 1-hour lamps. Those lamps represents the remaining hours after the 5-hour lamps.
     ///
     /// - Parameter minutes: The hour part of the time.
     /// - Returns: The lamp colors.

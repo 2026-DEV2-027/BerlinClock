@@ -43,7 +43,7 @@ struct ClockEngineTests {
         #expect(clockEngine.computeFiveHourRow(hours: 23) == allLamps)
     }
 
-    @Test("In 1-hour row, lamps are lit based on the remaining hours after the 5-hour blocks")
+    @Test("In 1-hour row, lamps are lit based on the remaining hours after the 5-hour lamps")
     func testOneHourRow() async throws {
         let allOff: [LampColor] = [.off, .off, .off, .off]
         #expect(clockEngine.computeOneHourRow(hours: 0) == allOff)
