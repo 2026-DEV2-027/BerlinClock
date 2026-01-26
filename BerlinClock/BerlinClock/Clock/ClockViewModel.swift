@@ -14,5 +14,11 @@ class ClockViewModel: ObservableObject {
     @Published var fiveMinuteRow: [LampColor] = Array(repeating: .off, count: 11)
     @Published var oneMinuteRow: [LampColor] = Array(repeating: .off, count: 4)
 
-    init() {}
+    private let timeProvider: TimeProviderProtocol
+
+    init(timeProvider: TimeProviderProtocol = SystemTimeProvider()) {
+        self.timeProvider = timeProvider
+    }
+
+    func tick() {}
 }
