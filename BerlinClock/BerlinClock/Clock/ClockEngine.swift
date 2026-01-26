@@ -39,7 +39,21 @@ struct ClockEngine {
     /// - Parameter minutes: The minute part of the time.
     /// - Returns: The lamp colors.
     func computeFiveMinuteRow(minutes: Int) -> [LampColor] {
-        return []
+        let activeLamps = minutes / 5
+        var row: [LampColor] = []
+
+        for index in 1...11 {
+            if index <= activeLamps {
+                if index.isMultiple(of: 3) {
+                    row.append(.red)
+                } else {
+                    row.append(.yellow)
+                }
+            } else {
+                row.append(.off)
+            }
+        }
+        return row
     }
 }
 
