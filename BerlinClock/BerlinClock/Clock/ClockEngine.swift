@@ -55,6 +55,14 @@ struct ClockEngine {
         }
         return row
     }
+
+    /// Computes the row of colors of the 1-minute lamps. Those lamps the last 4 minutes of the hour.
+    ///
+    /// - Parameter minutes: The minute part of the time.
+    /// - Returns: The lamp colors.
+    func computeOneMinuteRow(minutes: Int) -> [LampColor] {
+        return []
+    }
 }
 
 private extension ClockEngine {
