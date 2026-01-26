@@ -38,7 +38,7 @@ struct ClockEngineTests {
         #expect(clockEngine.computeSecondsLamp(seconds: seconds) == .off)
     }
 
-    // MARK: - 5-hour Lamps
+    // MARK: - 5-Hour Row
 
     @Test("All 5-hour lamps are off before 5 hours", arguments: 0...4)
     func testFiveHourLampsAreOff(hours: Int) {
@@ -65,7 +65,7 @@ struct ClockEngineTests {
         #expect(clockEngine.computeFiveHourRow(hours: hours) == [.red, .red, .red, .red])
     }
 
-    // MARK: - 1-hour Lamps
+    // MARK: - 1-Hour Row
 
     @Test("All 1-hour lamps are off on hours ending with 0 or 5", arguments: [0, 5, 10, 15, 20])
     func testOneHourLampsAreOff(hours: Int) {
@@ -92,7 +92,7 @@ struct ClockEngineTests {
         #expect(clockEngine.computeOneHourRow(hours: hours) == [.red, .red, .red, .red])
     }
 
-    // MARK: - 5-minute Lamps
+    // MARK: - 5-Minute Row
 
     @Test("All 5-minute lamps are off under 5 minutes", arguments: 0...4)
     func testFiveMinuteLampsAreOff(minutes: Int) {
@@ -154,7 +154,7 @@ struct ClockEngineTests {
         #expect(clockEngine.computeFiveMinuteRow(minutes: minutes) == FiveMinutesRow.allOn)
     }
 
-    // MARK: - 1-minute Lamps
+    // MARK: - 1-Minute Row
 
     @Test("All 1-minute lamps are off on minutes ending with 0 or 5", arguments: [0, 5, 30, 55])
     func testAllOneMinuteLampsAreOff(minutes: Int) {
