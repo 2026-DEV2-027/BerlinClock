@@ -15,4 +15,12 @@ struct ClockEngine {
     func computeSecondsLamp(seconds: Int) -> LampColor {
         return seconds.isMultiple(of: 2) ? .red : .off
     }
+
+    /// Computes the row of colors of the 5-hour lamps. Each lit lamp represents 5 hours.
+    ///
+    /// - Parameter seconds: The hour part of the time.
+    /// - Returns: The lamp colors.
+    func computeFiveHourRow(hours: Int) -> [LampColor] {
+        return []
+    }
 }
