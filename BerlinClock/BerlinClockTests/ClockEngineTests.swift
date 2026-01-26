@@ -12,7 +12,7 @@ struct ClockEngineTests {
     let clockEngine = ClockEngine()
 
     @Test("Seconds lamp lights up when seconds are even and turns off when seconds are odd")
-    func testSecondsLamp() async throws {
+    func testSecondsLamp() {
         #expect(clockEngine.computeSecondsLamp(seconds: 0) == .red)
         #expect(clockEngine.computeSecondsLamp(seconds: 1) == .off)
         #expect(clockEngine.computeSecondsLamp(seconds: 2) == .red)
@@ -20,7 +20,7 @@ struct ClockEngineTests {
     }
 
     @Test("In 5-hour row, lamps are lit per 5-hour block")
-    func testFiveHourRow() async throws {
+    func testFiveHourRow() {
         let allOff: [LampColor] = [.off, .off, .off, .off]
         #expect(clockEngine.computeFiveHourRow(hours: 0) == allOff)
         #expect(clockEngine.computeFiveHourRow(hours: 1) == allOff)
@@ -44,7 +44,7 @@ struct ClockEngineTests {
     }
 
     @Test("In 1-hour row, lamps are lit based on the remaining hours after the 5-hour lamps")
-    func testOneHourRow() async throws {
+    func testOneHourRow() {
         let allOff: [LampColor] = [.off, .off, .off, .off]
         #expect(clockEngine.computeOneHourRow(hours: 0) == allOff)
         #expect(clockEngine.computeOneHourRow(hours: 5) == allOff)
