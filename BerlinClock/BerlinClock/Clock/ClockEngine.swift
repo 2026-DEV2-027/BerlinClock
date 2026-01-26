@@ -13,6 +13,6 @@ struct ClockEngine {
     /// - Parameter seconds: The seconds part of the time.
     /// - Returns: The lamp color.
     func computeSecondsLamp(seconds: Int) -> LampColor {
-        return .off
+        return seconds.isMultiple(of: 2) ? .red : .off
     }
 }
