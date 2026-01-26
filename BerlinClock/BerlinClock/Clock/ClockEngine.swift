@@ -38,6 +38,15 @@ struct ClockEngine {
     /// - Parameter minutes: The hour part of the time.
     /// - Returns: The lamp colors.
     func computeOneHourRow(hours: Int) -> [LampColor] {
-        return []
+        var row: [LampColor] = []
+        let activeLamps = hours % 5
+        for index in 0 ..< 4 {
+            if index < activeLamps {
+                row.append(.red)
+            } else {
+                row.append(.off)
+            }
+        }
+        return row
     }
 }
