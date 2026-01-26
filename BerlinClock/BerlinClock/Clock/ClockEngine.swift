@@ -21,16 +21,8 @@ struct ClockEngine {
     /// - Parameter seconds: The hour part of the time.
     /// - Returns: The lamp colors.
     func computeFiveHourRow(hours: Int) -> [LampColor] {
-        var row: [LampColor] = []
         let activeLamps = hours / 5
-        for index in 0 ..< 4 {
-            if index < activeLamps {
-                row.append(.red)
-            } else {
-                row.append(.off)
-            }
-        }
-        return row
+        return createRow(totalLamps: 4, activeLamps: activeLamps, color: .red)
     }
 
     /// Computes the row of colors of the 1-hour lamps. Those lamps represents the remaining hours after the 5-hour lamps.
@@ -38,15 +30,27 @@ struct ClockEngine {
     /// - Parameter minutes: The hour part of the time.
     /// - Returns: The lamp colors.
     func computeOneHourRow(hours: Int) -> [LampColor] {
-        var row: [LampColor] = []
         let activeLamps = hours % 5
-        for index in 0 ..< 4 {
+        return createRow(totalLamps: 4, activeLamps: activeLamps, color: .red)
+    }
+}
+
+private extension ClockEngine {
+    
+    /// Helper function to create a row of lamp colors with size, amount of lit lamps, and color
+    ///
+    /// - Parameters:
+    ///   - totalLamps: Number of possible lamps in the row.
+    ///   - activeLamps: Number of lit lamps.
+    ///   - color: Color of lit lamps.
+    /// - Returns: The lamp colors.
+    func createRow(totalLamps: Int, activeLamps: Int, color: LampColor) -> [LampColor] {
+        return (0 ..< totalLamps).map { index in
             if index < activeLamps {
-                row.append(.red)
+                return color
             } else {
-                row.append(.off)
+                return .off
             }
         }
-        return row
     }
 }
