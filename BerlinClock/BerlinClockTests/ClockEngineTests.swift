@@ -10,7 +10,21 @@ import Testing
 
 struct ClockEngineTests {
     let clockEngine = ClockEngine()
-    let allFiveMinuteLamps: [LampColor] = [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow]
+
+    init() {
+        assert(FiveMinutesRow.allOff.count == 11)
+        assert(FiveMinutesRow.oneOn.count == 11)
+        assert(FiveMinutesRow.twoOn.count == 11)
+        assert(FiveMinutesRow.threeOn.count == 11)
+        assert(FiveMinutesRow.fourOn.count == 11)
+        assert(FiveMinutesRow.fiveOn.count == 11)
+        assert(FiveMinutesRow.sixOn.count == 11)
+        assert(FiveMinutesRow.sevenOn.count == 11)
+        assert(FiveMinutesRow.eightOn.count == 11)
+        assert(FiveMinutesRow.nineOn.count == 11)
+        assert(FiveMinutesRow.tenOn.count == 11)
+        assert(FiveMinutesRow.allOn.count == 11)
+    }
 
     // MARK: - Seconds Lamp
 
@@ -80,56 +94,64 @@ struct ClockEngineTests {
 
     // MARK: - 5-minute Lamps
 
-    @Test("In 5-minute row, lamps are lit in yellow based per 5-minute block, and every third lamp is red when lit.")
-    func testFiveMinuteRow() {
-        let allOff: [LampColor] = createFiveMinutesRow(lit: 0)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 0) == allOff)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 1) == allOff)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 4) == allOff)
+    @Test("All 5-minute lamps are off under 5 minutes", arguments: 0...4)
+    func testFiveMinuteLampsAreOff(minutes: Int) {
+        #expect(clockEngine.computeFiveMinuteRow(minutes: minutes) == FiveMinutesRow.allOff)
+    }
 
-        let firstLamp: [LampColor] = createFiveMinutesRow(lit: 1)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 5) == firstLamp)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 9) == firstLamp)
+    @Test("One 5-minute lamp is on between 5 and 9 minutes", arguments: 5...9)
+    func testOneFiveMinuteLampIsOn(minutes: Int) {
+        #expect(clockEngine.computeFiveMinuteRow(minutes: minutes) == FiveMinutesRow.oneOn)
+    }
 
-        let twoLamps: [LampColor] = createFiveMinutesRow(lit: 2)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 10) == twoLamps)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 14) == twoLamps)
+    @Test("Two 5-minute lamps are on between 10 and 14 minutes", arguments: 10...14)
+    func testTwoFiveMinuteLampAreOn(minutes: Int) {
+        #expect(clockEngine.computeFiveMinuteRow(minutes: minutes) == FiveMinutesRow.twoOn)
+    }
 
-        let threeLamps: [LampColor] = createFiveMinutesRow(lit: 3)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 15) == threeLamps)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 19) == threeLamps)
+    @Test("Three 5-minute lamps are on between 15 and 19 minutes", arguments: 15...19)
+    func testThreeFiveMinuteLampAreOn(minutes: Int) {
+        #expect(clockEngine.computeFiveMinuteRow(minutes: minutes) == FiveMinutesRow.threeOn)
+    }
 
-        let fourLamps: [LampColor] = createFiveMinutesRow(lit: 4)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 20) == fourLamps)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 24) == fourLamps)
+    @Test("Four 5-minute lamps are on between 20 and 24 minutes", arguments: 20...24)
+    func testFourFiveMinuteLampAreOn(minutes: Int) {
+        #expect(clockEngine.computeFiveMinuteRow(minutes: minutes) == FiveMinutesRow.fourOn)
+    }
 
-        let fiveLamps: [LampColor] = createFiveMinutesRow(lit: 5)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 25) == fiveLamps)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 29) == fiveLamps)
+    @Test("Five 5-minute lamps are on between 25 and 29 minutes", arguments: 25...29)
+    func testFiveFiveMinuteLampAreOn(minutes: Int) {
+        #expect(clockEngine.computeFiveMinuteRow(minutes: minutes) == FiveMinutesRow.fiveOn)
+    }
 
-        let sixLamps: [LampColor] = createFiveMinutesRow(lit: 6)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 30) == sixLamps)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 34) == sixLamps)
+    @Test("Six 5-minute lamps are on between 30 and 34 minutes", arguments: 30...34)
+    func testSixFiveMinuteLampAreOn(minutes: Int) {
+        #expect(clockEngine.computeFiveMinuteRow(minutes: minutes) == FiveMinutesRow.sixOn)
+    }
 
-        let sevenLamps: [LampColor] = createFiveMinutesRow(lit: 7)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 35) == sevenLamps)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 39) == sevenLamps)
+    @Test("Seven 5-minute lamps are on between 35 and 39 minutes", arguments: 35...39)
+    func testSevenFiveMinuteLampAreOn(minutes: Int) {
+        #expect(clockEngine.computeFiveMinuteRow(minutes: minutes) == FiveMinutesRow.sevenOn)
+    }
 
-        let eigthLamps: [LampColor] = createFiveMinutesRow(lit: 8)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 40) == eigthLamps)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 44) == eigthLamps)
+    @Test("Eight 5-minute lamps are on between 40 and 44 minutes", arguments: 40...44)
+    func testEightFiveMinuteLampAreOn(minutes: Int) {
+        #expect(clockEngine.computeFiveMinuteRow(minutes: minutes) == FiveMinutesRow.eightOn)
+    }
 
-        let nineLamps: [LampColor] = createFiveMinutesRow(lit: 9)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 45) == nineLamps)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 49) == nineLamps)
+    @Test("Nine 5-minute lamps are on between 45 and 49 minutes", arguments: 45...49)
+    func testNineFiveMinuteLampAreOn(minutes: Int) {
+        #expect(clockEngine.computeFiveMinuteRow(minutes: minutes) == FiveMinutesRow.nineOn)
+    }
 
-        let tenLamps: [LampColor] = createFiveMinutesRow(lit: 10)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 50) == tenLamps)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 54) == tenLamps)
+    @Test("Ten 5-minute lamps are on between 50 and 54 minutes", arguments: 50...54)
+    func testTenFiveMinuteLampAreOn(minutes: Int) {
+        #expect(clockEngine.computeFiveMinuteRow(minutes: minutes) == FiveMinutesRow.tenOn)
+    }
 
-        let allLamps: [LampColor] = createFiveMinutesRow(lit: 11)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 55) == allLamps)
-        #expect(clockEngine.computeFiveMinuteRow(minutes: 59) == allLamps)
+    @Test("All 5-minute lamps are on between 55 and 59 minutes", arguments: 55...59)
+    func testAllFiveMinuteLampAreOn(minutes: Int) {
+        #expect(clockEngine.computeFiveMinuteRow(minutes: minutes) == FiveMinutesRow.allOn)
     }
 
     // MARK: - 1-minute Lamps
@@ -210,7 +232,18 @@ struct ClockEngineTests {
 
 private extension ClockEngineTests {
 
-    func createFiveMinutesRow(lit lampsCount: Int) -> [LampColor] {
-        return Array(allFiveMinuteLamps.prefix(lampsCount)) + Array(repeating: .off, count: allFiveMinuteLamps.count - lampsCount)
+    enum FiveMinutesRow {
+        static let allOff:  [LampColor] = Array(repeating: .off, count: 11)
+        static let oneOn:   [LampColor] = [.yellow] + Array(repeating: .off, count: 10)
+        static let twoOn:   [LampColor] = [.yellow, .yellow] + Array(repeating: .off, count: 9)
+        static let threeOn: [LampColor] = [.yellow, .yellow, .red] + Array(repeating: .off, count: 8)
+        static let fourOn:  [LampColor] = [.yellow, .yellow, .red, .yellow] + Array(repeating: .off, count: 7)
+        static let fiveOn:  [LampColor] = [.yellow, .yellow, .red, .yellow, .yellow] + Array(repeating: .off, count: 6)
+        static let sixOn:   [LampColor] = [.yellow, .yellow, .red, .yellow, .yellow, .red] + Array(repeating: .off, count: 5)
+        static let sevenOn: [LampColor] = [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow] + Array(repeating: .off, count: 4)
+        static let eightOn: [LampColor] = [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow] + Array(repeating: .off, count: 3)
+        static let nineOn:  [LampColor] = [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red] + Array(repeating: .off, count: 2)
+        static let tenOn:   [LampColor] = [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .off]
+        static let allOn:   [LampColor] = [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow]
     }
 }
