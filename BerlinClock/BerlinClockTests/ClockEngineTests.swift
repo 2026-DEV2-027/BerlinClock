@@ -12,12 +12,14 @@ struct ClockEngineTests {
     let clockEngine = ClockEngine()
     let allFiveMinuteLamps: [LampColor] = [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow]
 
-    @Test("Seconds lamp lights up when seconds are even and turns off when seconds are odd")
-    func testSecondsLamp() {
-        #expect(clockEngine.computeSecondsLamp(seconds: 0) == .red)
-        #expect(clockEngine.computeSecondsLamp(seconds: 1) == .off)
-        #expect(clockEngine.computeSecondsLamp(seconds: 2) == .red)
-        #expect(clockEngine.computeSecondsLamp(seconds: 59) == .off)
+    @Test("Seconds lamp lights up when seconds are even", arguments: [0, 2, 10, 30, 58])
+    func testSecondsLampIsOnWhenEven(seconds: Int) {
+        #expect(clockEngine.computeSecondsLamp(seconds: seconds) == .red)
+    }
+
+    @Test("Seconds lamp turns off when seconds are odd", arguments: [1, 3, 11, 31, 59])
+    func testSecondsLampIsOffWhenOdd(seconds: Int) {
+        #expect(clockEngine.computeSecondsLamp(seconds: seconds) == .off)
     }
 
     @Test("In 5-hour row, lamps are lit per 5-hour block")
