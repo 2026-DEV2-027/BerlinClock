@@ -9,10 +9,10 @@ import Combine
 
 class ClockViewModel: ObservableObject {
     @Published var secondsLamp: LampColor = .off
-    @Published var fiveHourRow: [LampColor] = []
-    @Published var oneHourRow: [LampColor] = []
-    @Published var fiveMinuteRow: [LampColor] = []
-    @Published var oneMinuteRow: [LampColor] = []
+    @Published var fiveHourRow: [LampColor] = Array(repeating: .off, count: 4)
+    @Published var oneHourRow: [LampColor] = Array(repeating: .off, count: 4)
+    @Published var fiveMinuteRow: [LampColor] = Array(repeating: .off, count: 11)
+    @Published var oneMinuteRow: [LampColor] = Array(repeating: .off, count: 4)
 
     init() {}
 }
