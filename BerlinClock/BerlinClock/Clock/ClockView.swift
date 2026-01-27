@@ -17,6 +17,9 @@ struct ClockView: View {
 
     var body: some View {
         VStack {
+            Text(instructions)
+                .multilineTextAlignment(.center)
+
             Spacer()
 
             Circle()
@@ -67,6 +70,16 @@ struct ClockView: View {
         }
         .onDisappear {
             viewModel.stop()
+        }
+    }
+}
+
+private extension ClockView {
+
+    var instructions: String {
+        switch SwiftUIViewRunner.current {
+        case .preview: "⬆️ Do check the other Previews above ⬆️"
+        case .simulator, .device: "🌙 Try out dark mode"
         }
     }
 }
