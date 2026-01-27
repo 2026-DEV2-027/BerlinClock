@@ -75,17 +75,22 @@ extension LampColor {
     var color: Color {
         switch self {
         case .off:
-            return .gray
+            return Color("LampOff")
         case .yellow:
-            return .yellow
+            return Color("LampYellow")
         case .red:
-            return .red
+            return Color("LampRed")
         }
     }
 }
 
 #Preview("Berlin Clock") {
     ClockView()
+}
+
+#Preview("Dark mode") {
+    ClockView()
+        .preferredColorScheme(.dark)
 }
 
 #Preview("Fast Clock") {
