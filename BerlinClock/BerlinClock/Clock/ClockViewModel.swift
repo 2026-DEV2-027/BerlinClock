@@ -31,9 +31,14 @@ class ClockViewModel: ObservableObject {
         self.dateFormatter = DateFormatter(dateFormat: "HH:mm:ss", calendar: calendar)
     }
 
-    func start() {}
+    func start() {
+        metronome.onTick = tick
+        metronome.start()
+    }
 
-    func stop() {}
+    func stop() {
+        metronome.stop()
+    }
 }
 
 private extension ClockViewModel {
