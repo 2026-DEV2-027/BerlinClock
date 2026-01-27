@@ -14,8 +14,11 @@ struct ClockView: View {
 
     var body: some View {
         VStack {
+            Spacer()
+
             Circle()
                 .foregroundStyle(viewModel.secondsLamp.color)
+                .frame(height: 80)
 
             HStack {
                 ForEach(viewModel.fiveHourRow.indices, id: \.self) { index in
@@ -23,6 +26,7 @@ struct ClockView: View {
                         .foregroundStyle(viewModel.fiveHourRow[index].color)
                 }
             }
+            .frame(height: 40)
 
             HStack {
                 ForEach(viewModel.oneHourRow.indices, id: \.self) { index in
@@ -30,6 +34,7 @@ struct ClockView: View {
                         .foregroundStyle(viewModel.oneHourRow[index].color)
                 }
             }
+            .frame(height: 40)
 
             HStack {
                 ForEach(viewModel.fiveMinuteRow.indices, id: \.self) { index in
@@ -37,6 +42,7 @@ struct ClockView: View {
                         .foregroundStyle(viewModel.fiveMinuteRow[index].color)
                 }
             }
+            .frame(height: 40)
 
             HStack {
                 ForEach(viewModel.oneMinuteRow.indices, id: \.self) { index in
@@ -44,6 +50,9 @@ struct ClockView: View {
                         .foregroundStyle(viewModel.oneMinuteRow[index].color)
                 }
             }
+            .frame(height: 40)
+
+            Spacer()
         }
         .onReceive(timer) { time in
             viewModel.tick()
@@ -64,6 +73,6 @@ extension LampColor {
     }
 }
 
-#Preview {
+#Preview("Berlin Clock") {
     ClockView()
 }
