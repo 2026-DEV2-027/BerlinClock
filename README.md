@@ -28,6 +28,8 @@ In order to sync the Berlin Clock's rhythm with the OS's, a function computes th
 
 As per `Timer(fire:)`'s implementation, if the date in argument happened to be in the past, it will fire immediately when added to the run loop. In a real project, a developer *could* unadvertedly add too much computing between setting the timer and adding it to the system's RunLoop, which in extreme cases could cause a noticeable lag. Considering the scope and readability of this Kata, this corner case will not be treated.
 
+Note: The default value of `Timer.tolerance` is zero, which is as precise as we can get. Regardless of that value, `tolerance` may be overridden by the OS e.g. for global power saving situations.
+
 ### Performance
 
 In order to prevent unnecessary computing, the hour and minute rows are computed only if the corresponding hour and minute actually changed since the last clock tick.
