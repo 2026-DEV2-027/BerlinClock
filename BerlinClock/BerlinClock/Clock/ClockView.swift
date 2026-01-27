@@ -56,6 +56,8 @@ struct ClockView: View {
             Text(viewModel.timeText)
                 .font(.largeTitle)
         }
+        .animation(.default.speed(1.25), value: viewModel.secondsLamp)
+        .padding()
         .task {
             viewModel.start()
         }
