@@ -5,13 +5,15 @@
 //  Created by 2026-DEV2-027 on 25/01/2026.
 //
 
+import Foundation
 import Testing
 @testable import BerlinClock
 
+@MainActor
 struct ClockViewModelTests {
     @Test("All lamps are off at init")
     func testLampsAreOffAtInit() {
-        let viewModel = ClockViewModel()
+        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: MockMetronome(), calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
 
         #expect(viewModel.secondsLamp == .off)
         #expect(viewModel.fiveHourRow == [.off, .off, .off, .off])
@@ -22,7 +24,7 @@ struct ClockViewModelTests {
 
     @Test("Time text is midnight at init")
     func testTimeTextIsMidnightAtInit() {
-        let viewModel = ClockViewModel()
+        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: MockMetronome(), calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
 
         #expect(viewModel.timeText == "00:00:00")
     }
@@ -30,7 +32,8 @@ struct ClockViewModelTests {
     @Test("Lamps are adapted after first tick")
     func testLampsAfterTick() {
         let metronome = MockMetronome()
-        let viewModel = ClockViewModel(timeProvider: MockTimeProvider(hour: 8, minute: 16, second: 0), metronome: metronome)
+        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: MockTimeProvider(hour: 8, minute: 16, second: 0), metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+
         viewModel.start()
         metronome.tick()
 
@@ -44,7 +47,7 @@ struct ClockViewModelTests {
     @Test("Time text is adapted after first tick")
     func testTimeTextAfterTick() {
         let metronome = MockMetronome()
-        let viewModel = ClockViewModel(timeProvider: MockTimeProvider(hour: 16, minute: 44, second: 11), metronome: metronome)
+        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: MockTimeProvider(hour: 16, minute: 44, second: 11), metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
         viewModel.start()
         metronome.tick()
 
@@ -54,7 +57,7 @@ struct ClockViewModelTests {
     @Test("Starting ViewModel starts the metronome")
     func testStartCallsMetronomeStart() {
         let metronome = MockMetronome()
-        let viewModel = ClockViewModel(metronome: metronome)
+        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
 
         viewModel.start()
 
@@ -64,7 +67,7 @@ struct ClockViewModelTests {
     @Test("Stopping ViewModel stops the metronome")
     func testStopCallsMetronomeStop() {
         let metronome = MockMetronome()
-        let viewModel = ClockViewModel(metronome: metronome)
+        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
 
         viewModel.stop()
 

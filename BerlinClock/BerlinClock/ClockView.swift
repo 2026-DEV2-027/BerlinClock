@@ -9,9 +9,9 @@ import SwiftUI
 import Combine
 
 struct ClockView: View {
-    @StateObject var viewModel = ClockViewModel()
+    @StateObject var viewModel: ClockViewModel
 
-    init(viewModel: ClockViewModel = ClockViewModel()) {
+    init(viewModel: ClockViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -85,22 +85,22 @@ private extension ClockView {
 }
 
 #Preview("Berlin Clock") {
-    ClockView()
+    ClockView(viewModel: ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: SystemMetronome(), calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current)))
 }
 
 #Preview("Dark mode") {
-    ClockView()
+    ClockView(viewModel: ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: SystemMetronome(), calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current)))
         .preferredColorScheme(.dark)
 }
 
 #Preview("Fast Clock") {
-    let viewModel = ClockViewModel(timeProvider: IncrementingTimeProvider(), metronome: CustomMetronome(tickInterval: 0.0001))
+    let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: IncrementingTimeProvider(), metronome: CustomMetronome(tickInterval: 0.0001), calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
     return ClockView(viewModel: viewModel)
 }
 
 #Preview("Toyko time zone") {
     var tokyoCalendar = Calendar(identifier: .gregorian)
     tokyoCalendar.timeZone = TimeZone(identifier: "Asia/Tokyo")!
-    let viewModel = ClockViewModel(calendar: tokyoCalendar)
+    let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: SystemMetronome(), calendar: tokyoCalendar, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: tokyoCalendar))
     return ClockView(viewModel: viewModel)
 }

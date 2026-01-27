@@ -11,7 +11,16 @@ import SwiftUI
 struct BerlinClockApp: App {
     var body: some Scene {
         WindowGroup {
-            ClockView()
+            ClockView(
+                viewModel:
+                    ClockViewModel(
+                        engine: ClockEngine(),
+                        timeProvider: SystemTimeProvider(),
+                        metronome: SystemMetronome(),
+                        calendar: Calendar.current,
+                        dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current)
+                    )
+            )
         }
     }
 }

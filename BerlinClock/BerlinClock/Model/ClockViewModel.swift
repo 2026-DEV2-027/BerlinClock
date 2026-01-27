@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+@MainActor
 class ClockViewModel: ObservableObject {
     @Published var secondsLamp: LampColor = .off
     @Published var fiveHourRow: [LampColor] = Array(repeating: .off, count: 4)
@@ -16,19 +17,20 @@ class ClockViewModel: ObservableObject {
     @Published var oneMinuteRow: [LampColor] = Array(repeating: .off, count: 4)
     @Published var timeText: String = "00:00:00"
 
+    private let engine: ClockEngine
     private let timeProvider: TimeProviderProtocol
     private var metronome: MetronomeProtocol
     private let calendar: Calendar
     private let dateFormatter: DateFormatter
-    private let engine = ClockEngine()
     private var hours = 0
     private var minutes = 0
 
-    init(timeProvider: TimeProviderProtocol = SystemTimeProvider(), metronome: MetronomeProtocol = SystemMetronome(), calendar: Calendar = Calendar.current) {
+    init(engine: ClockEngine, timeProvider: TimeProviderProtocol, metronome: MetronomeProtocol, calendar: Calendar, dateFormatter: DateFormatter) {
+        self.engine = engine
         self.timeProvider = timeProvider
         self.metronome = metronome
         self.calendar = calendar
-        self.dateFormatter = DateFormatter(dateFormat: "HH:mm:ss", calendar: calendar)
+        self.dateFormatter = dateFormatter
     }
 
     func start() {
