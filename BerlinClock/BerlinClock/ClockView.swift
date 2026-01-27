@@ -97,7 +97,7 @@ private extension ClockView {
     return ClockView(viewModel: viewModel)
 }
 
-#Preview("Toyko time zone") {
+#Preview("Tokyo time zone") {
     var tokyoCalendar = Calendar(identifier: .gregorian)
     tokyoCalendar.timeZone = TimeZone(identifier: "Asia/Tokyo")!
     let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: SystemMetronome(), calendar: tokyoCalendar, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: tokyoCalendar))
