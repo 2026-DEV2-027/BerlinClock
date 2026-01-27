@@ -18,6 +18,8 @@ class ClockViewModel: ObservableObject {
     private let timeProvider: TimeProviderProtocol
     private let calendar: Calendar
     private let engine = ClockEngine()
+    private var hours = 0
+    private var minutes = 0
 
     init(timeProvider: TimeProviderProtocol = SystemTimeProvider(), calendar: Calendar = Calendar.current) {
         self.timeProvider = timeProvider
@@ -32,9 +34,18 @@ class ClockViewModel: ObservableObject {
         let seconds = components.second!
 
         secondsLamp = engine.computeSecondsLamp(seconds: seconds)
-        fiveHourRow = engine.computeFiveHourRow(hours: hours)
-        oneHourRow = engine.computeOneHourRow(hours: hours)
-        fiveMinuteRow = engine.computeFiveMinuteRow(minutes: minutes)
-        oneMinuteRow = engine.computeOneMinuteRow(minutes: minutes)
+
+        if hours != self.hours {
+            fiveHourRow = engine.computeFiveHourRow(hours: hours)
+            oneHourRow = engine.computeOneHourRow(hours: hours)
+        }
+
+        if minutes != self.minutes {
+            fiveMinuteRow = engine.computeFiveMinuteRow(minutes: minutes)
+            oneMinuteRow = engine.computeOneMinuteRow(minutes: minutes)
+        }
+
+        self.hours = hours
+        self.minutes = minutes
     }
 }
