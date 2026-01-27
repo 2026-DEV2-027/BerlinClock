@@ -98,7 +98,7 @@ extension LampColor {
     return ClockView(viewModel: viewModel)
 }
 
-#Preview("Berlin Clock in Toyko time") {
+#Preview("Toyko time zone") {
     var tokyoCalendar = Calendar(identifier: .gregorian)
     tokyoCalendar.timeZone = TimeZone(identifier: "Asia/Tokyo")!
     let viewModel = ClockViewModel(calendar: tokyoCalendar)
