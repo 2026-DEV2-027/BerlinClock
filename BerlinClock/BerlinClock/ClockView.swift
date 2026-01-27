@@ -84,19 +84,6 @@ private extension ClockView {
     }
 }
 
-extension LampColor {
-    var color: Color {
-        switch self {
-        case .off:
-            return Color("LampOff")
-        case .yellow:
-            return Color("LampYellow")
-        case .red:
-            return Color("LampRed")
-        }
-    }
-}
-
 #Preview("Berlin Clock") {
     ClockView()
 }

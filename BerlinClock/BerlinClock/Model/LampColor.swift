@@ -6,7 +6,7 @@
 //
 
 /// Represents the different states of the lamps of the Berlin clock
-enum LampColor {
+enum LampColor: Sendable {
     case off
     case yellow
     case red
