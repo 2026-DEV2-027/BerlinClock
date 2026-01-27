@@ -48,9 +48,9 @@ private extension ClockViewModel {
     func tick() {
         let time = timeProvider.now
         let components = calendar.dateComponents([.second, .hour, .minute], from: time)
-        let hours = components.hour!
-        let minutes = components.minute!
-        let seconds = components.second!
+        let hours = components.hour ?? 0
+        let minutes = components.minute ?? 0
+        let seconds = components.second ?? 0
 
         secondsLamp = engine.computeSecondsLamp(seconds: seconds)
 

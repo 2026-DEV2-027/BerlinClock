@@ -14,6 +14,6 @@ struct MockTimeProvider: TimeProviderProtocol {
     init(hour: Int, minute: Int, second: Int) {
         let calendar = Calendar.current
         let components = DateComponents(calendar: calendar, hour: hour, minute: minute, second: second)
-        now = calendar.date(from: components)!
+        now = calendar.date(from: components) ?? Date.now
     }
 }

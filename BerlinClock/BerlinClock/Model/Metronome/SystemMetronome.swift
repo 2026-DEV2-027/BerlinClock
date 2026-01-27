@@ -15,7 +15,8 @@ class SystemMetronome: MetronomeProtocol {
         stop()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date.now)
-        let nextRoundedSecond = calendar.date(from: components)!.addingTimeInterval(1.0)
+
+        guard let nextRoundedSecond = calendar.date(from: components)?.addingTimeInterval(1.0) else { return }
 
         let timer = Timer(fire: nextRoundedSecond, interval: 1.0, repeats: true) { [weak self] _ in
             self?.onTick?()
