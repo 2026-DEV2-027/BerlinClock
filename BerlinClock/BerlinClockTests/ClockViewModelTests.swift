@@ -50,4 +50,24 @@ struct ClockViewModelTests {
 
         #expect(viewModel.timeText == "16:44:11")
     }
+
+    @Test("Starting ViewModel starts the metronome")
+    func testStartCallsMetronomeStart() {
+        let metronome = MockMetronome()
+        let viewModel = ClockViewModel(metronome: metronome)
+
+        viewModel.start()
+
+        #expect(metronome.isRunning)
+    }
+
+    @Test("Stopping ViewModel stops the metronome")
+    func testStopCallsMetronomeStop() {
+        let metronome = MockMetronome()
+        let viewModel = ClockViewModel(metronome: metronome)
+
+        viewModel.stop()
+
+        #expect(!metronome.isRunning)
+    }
 }
