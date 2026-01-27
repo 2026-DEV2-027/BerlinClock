@@ -18,6 +18,7 @@ class ClockViewModel: ObservableObject {
 
     private let timeProvider: TimeProviderProtocol
     private let calendar: Calendar
+    private let dateFormatter: DateFormatter
     private let engine = ClockEngine()
     private var hours = 0
     private var minutes = 0
@@ -25,6 +26,7 @@ class ClockViewModel: ObservableObject {
     init(timeProvider: TimeProviderProtocol = SystemTimeProvider(), calendar: Calendar = Calendar.current) {
         self.timeProvider = timeProvider
         self.calendar = calendar
+        self.dateFormatter = DateFormatter(dateFormat: "HH:mm:ss", calendar: calendar)
     }
 
     func tick() {
@@ -46,7 +48,7 @@ class ClockViewModel: ObservableObject {
             oneMinuteRow = engine.computeOneMinuteRow(minutes: minutes)
         }
 
-        timeText = "00:00:00"
+        timeText = dateFormatter.string(from: time)
 
         self.hours = hours
         self.minutes = minutes
