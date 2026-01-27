@@ -11,6 +11,10 @@ import Combine
 struct ClockView: View {
     @StateObject var viewModel = ClockViewModel()
 
+    init(viewModel: ClockViewModel = ClockViewModel()) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+    }
+
     var body: some View {
         VStack {
             Spacer()
@@ -82,4 +86,16 @@ extension LampColor {
 
 #Preview("Berlin Clock") {
     ClockView()
+}
+
+#Preview("Fast Clock") {
+    let viewModel = ClockViewModel(timeProvider: IncrementingTimeProvider(), metronome: CustomMetronome(tickInterval: 0.0001))
+    return ClockView(viewModel: viewModel)
+}
+
+#Preview("Berlin Clock in Toyko time") {
+    var tokyoCalendar = Calendar(identifier: .gregorian)
+    tokyoCalendar.timeZone = TimeZone(identifier: "Asia/Tokyo")!
+    let viewModel = ClockViewModel(calendar: tokyoCalendar)
+    return ClockView(viewModel: viewModel)
 }
