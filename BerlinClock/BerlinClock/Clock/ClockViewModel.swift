@@ -14,6 +14,7 @@ class ClockViewModel: ObservableObject {
     @Published var oneHourRow: [LampColor] = Array(repeating: .off, count: 4)
     @Published var fiveMinuteRow: [LampColor] = Array(repeating: .off, count: 11)
     @Published var oneMinuteRow: [LampColor] = Array(repeating: .off, count: 4)
+    @Published var timeText: String = "00:00:00"
 
     private let timeProvider: TimeProviderProtocol
     private let calendar: Calendar
@@ -44,6 +45,8 @@ class ClockViewModel: ObservableObject {
             fiveMinuteRow = engine.computeFiveMinuteRow(minutes: minutes)
             oneMinuteRow = engine.computeOneMinuteRow(minutes: minutes)
         }
+
+        timeText = "00:00:00"
 
         self.hours = hours
         self.minutes = minutes

@@ -53,6 +53,9 @@ struct ClockView: View {
             .frame(height: 40)
 
             Spacer()
+
+            Text(viewModel.timeText)
+                .font(.largeTitle)
         }
         .onReceive(timer) { time in
             viewModel.tick()
