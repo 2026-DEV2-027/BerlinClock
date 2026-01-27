@@ -17,17 +17,26 @@ class ClockViewModel: ObservableObject {
     @Published var timeText: String = "00:00:00"
 
     private let timeProvider: TimeProviderProtocol
+    private var metronome: MetronomeProtocol
     private let calendar: Calendar
     private let dateFormatter: DateFormatter
     private let engine = ClockEngine()
     private var hours = 0
     private var minutes = 0
 
-    init(timeProvider: TimeProviderProtocol = SystemTimeProvider(), calendar: Calendar = Calendar.current) {
+    init(timeProvider: TimeProviderProtocol = SystemTimeProvider(), metronome: MetronomeProtocol = SystemMetronome(), calendar: Calendar = Calendar.current) {
         self.timeProvider = timeProvider
+        self.metronome = metronome
         self.calendar = calendar
         self.dateFormatter = DateFormatter(dateFormat: "HH:mm:ss", calendar: calendar)
     }
+
+    func start() {}
+
+    func stop() {}
+}
+
+private extension ClockViewModel {
 
     func tick() {
         let time = timeProvider.now

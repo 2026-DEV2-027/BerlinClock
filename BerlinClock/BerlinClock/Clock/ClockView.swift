@@ -10,7 +10,6 @@ import Combine
 
 struct ClockView: View {
     @StateObject var viewModel = ClockViewModel()
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
         VStack {
@@ -57,8 +56,11 @@ struct ClockView: View {
             Text(viewModel.timeText)
                 .font(.largeTitle)
         }
-        .onReceive(timer) { time in
-            viewModel.tick()
+        .task {
+            viewModel.start()
+        }
+        .onDisappear {
+            viewModel.stop()
         }
     }
 }

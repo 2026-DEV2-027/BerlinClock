@@ -29,8 +29,10 @@ struct ClockViewModelTests {
 
     @Test("Lamps are adapted after first tick")
     func testLampsAfterTick() {
-        let viewModel = ClockViewModel(timeProvider: MockTimeProvider(hour: 8, minute: 16, second: 0))
-        viewModel.tick()
+        let metronome = MockMetronome()
+        let viewModel = ClockViewModel(timeProvider: MockTimeProvider(hour: 8, minute: 16, second: 0), metronome: metronome)
+        viewModel.start()
+        metronome.tick()
 
         #expect(viewModel.secondsLamp == .red)
         #expect(viewModel.fiveHourRow == [.red, .off, .off, .off])
@@ -41,8 +43,10 @@ struct ClockViewModelTests {
 
     @Test("Time text is adapted after first tick")
     func testTimeTextAfterTick() {
-        let viewModel = ClockViewModel(timeProvider: MockTimeProvider(hour: 16, minute: 44, second: 11))
-        viewModel.tick()
+        let metronome = MockMetronome()
+        let viewModel = ClockViewModel(timeProvider: MockTimeProvider(hour: 16, minute: 44, second: 11), metronome: metronome)
+        viewModel.start()
+        metronome.tick()
 
         #expect(viewModel.timeText == "16:44:11")
     }
