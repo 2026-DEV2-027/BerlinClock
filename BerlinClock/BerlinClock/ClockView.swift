@@ -70,16 +70,27 @@ struct ClockView: View {
 
 private extension ClockView {
 
-    var instructions: String {
+    var instructions: LocalizedStringResource {
         switch SwiftUIViewRunner.current {
-        case .preview: "⬆️ Do check the other Previews above ⬆️"
-        case .simulator, .device: "🌙 Try out dark mode"
+        case .preview: .clockInstructionsPreview
+        case .simulator, .device: .clockInstructionsSimulator
         }
     }
 }
 
-#Preview("Berlin Clock") {
+#Preview("Berlin Clock 🇬🇧") {
     ClockView(viewModel: ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: SystemMetronome(scheduler: RunLoop.main), calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current)))
+        .environment(\.locale, .init(identifier: "en"))
+}
+
+#Preview("Berlin Clock 🇫🇷") {
+    ClockView(viewModel: ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: SystemMetronome(scheduler: RunLoop.main), calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current)))
+        .environment(\.locale, .init(identifier: "fr"))
+}
+
+#Preview("Berlin Clock 🇳🇱") {
+    ClockView(viewModel: ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: SystemMetronome(scheduler: RunLoop.main), calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current)))
+        .environment(\.locale, .init(identifier: "nl"))
 }
 
 #Preview("Dark mode") {
@@ -100,3 +111,4 @@ private extension ClockView {
     let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: SystemMetronome(scheduler: RunLoop.main), calendar: tokyoCalendar, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: tokyoCalendar))
     return ClockView(viewModel: viewModel)
 }
+
