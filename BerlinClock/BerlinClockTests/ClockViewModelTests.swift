@@ -202,4 +202,36 @@ struct ClockViewModelTests {
 
         #expect(!metronome.isRunning)
     }
+
+    @Test("Tokyo timezone clock")
+    func testTokyoTimeZone() {
+        let timeProvider = MockTimeProvider(hour: 9, minute: 41, second: 0)
+        let metronome: MockMetronome = MockMetronome()
+
+        var tokyoCalendar = Calendar(identifier: .gregorian)
+        if let timeZone = TimeZone(identifier: "Asia/Tokyo") {
+            tokyoCalendar.timeZone = timeZone
+        }
+        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: tokyoCalendar, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: tokyoCalendar))
+        viewModel.start()
+        metronome.tick()
+
+        #expect(viewModel.timeText == "17:41:00")
+    }
+
+    @Test("L.A. timezone clock")
+    func testLosAngelesTimeZone() {
+        let timeProvider = MockTimeProvider(hour: 9, minute: 41, second: 0)
+        let metronome: MockMetronome = MockMetronome()
+
+        var losAngelesCalendar = Calendar(identifier: .gregorian)
+        if let timeZone = TimeZone(identifier: "America/Los_Angeles") {
+            losAngelesCalendar.timeZone = timeZone
+        }
+        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: losAngelesCalendar, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: losAngelesCalendar))
+        viewModel.start()
+        metronome.tick()
+
+        #expect(viewModel.timeText == "00:41:00")
+    }
 }
