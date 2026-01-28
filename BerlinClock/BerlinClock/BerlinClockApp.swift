@@ -16,7 +16,7 @@ struct BerlinClockApp: App {
                     ClockViewModel(
                         engine: ClockEngine(),
                         timeProvider: SystemTimeProvider(),
-                        metronome: SystemMetronome(),
+                        metronome: SystemMetronome(scheduler: RunLoop.main),
                         calendar: Calendar.current,
                         dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current)
                     )

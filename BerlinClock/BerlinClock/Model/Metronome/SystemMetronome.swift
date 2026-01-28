@@ -11,6 +11,8 @@ class SystemMetronome: MetronomeProtocol {
     var onTick: (() -> Void)?
     private var timer: Timer?
 
+    init(scheduler: TimerScheduler) {}
+
     func start() {
         stop()
         let calendar = Calendar.current
