@@ -9,9 +9,12 @@ import Foundation
 
 class SystemMetronome: MetronomeProtocol {
     var onTick: (() -> Void)?
+    private let scheduler: TimerScheduler
     private var timer: Timer?
 
-    init(scheduler: TimerScheduler) {}
+    init(scheduler: TimerScheduler) {
+        self.scheduler = scheduler
+    }
 
     func start() {
         stop()
@@ -23,7 +26,7 @@ class SystemMetronome: MetronomeProtocol {
         let timer = Timer(fire: nextRoundedSecond, interval: 1.0, repeats: true) { [weak self] _ in
             self?.onTick?()
         }
-        RunLoop.main.add(timer, forMode: .common)
+        scheduler.add(timer, forMode: .common)
 
         self.timer = timer
     }
