@@ -12,16 +12,16 @@ struct ClockEngine {
     ///
     /// - Parameter seconds: The seconds part of the time.
     /// - Returns: The lamp color.
-    func computeSecondsLamp(seconds: Int) -> LampColor {
-        return seconds.isMultiple(of: 2) ? .red : .off
+    func computeSecondsLamp(second: Int) -> LampColor {
+        return second.isMultiple(of: 2) ? .red : .off
     }
 
     /// Computes the row of colors of the 5-hour lamps. Each lit lamp represents 5 hours.
     ///
     /// - Parameter seconds: The hour part of the time.
     /// - Returns: The lamp colors.
-    func computeFiveHourRow(hours: Int) -> [LampColor] {
-        let activeLamps = hours / 5
+    func computeFiveHourRow(hour: Int) -> [LampColor] {
+        let activeLamps = hour / 5
         return createRow(totalLamps: 4, activeLamps: activeLamps, color: .red)
     }
 
@@ -29,8 +29,8 @@ struct ClockEngine {
     ///
     /// - Parameter minutes: The hour part of the time.
     /// - Returns: The lamp colors.
-    func computeOneHourRow(hours: Int) -> [LampColor] {
-        let activeLamps = hours % 5
+    func computeOneHourRow(hour: Int) -> [LampColor] {
+        let activeLamps = hour % 5
         return createRow(totalLamps: 4, activeLamps: activeLamps, color: .red)
     }
 
@@ -38,8 +38,8 @@ struct ClockEngine {
     ///
     /// - Parameter minutes: The minute part of the time.
     /// - Returns: The lamp colors.
-    func computeFiveMinuteRow(minutes: Int) -> [LampColor] {
-        let activeLamps = minutes / 5
+    func computeFiveMinuteRow(minute: Int) -> [LampColor] {
+        let activeLamps = minute / 5
         var row: [LampColor] = []
 
         for index in 1...11 {
@@ -60,8 +60,8 @@ struct ClockEngine {
     ///
     /// - Parameter minutes: The minute part of the time.
     /// - Returns: The lamp colors.
-    func computeOneMinuteRow(minutes: Int) -> [LampColor] {
-        let activeLamps = minutes % 5
+    func computeOneMinuteRow(minute: Int) -> [LampColor] {
+        let activeLamps = minute % 5
         return createRow(totalLamps: 4, activeLamps: activeLamps, color: .yellow)
     }
 }

@@ -22,9 +22,9 @@ class ClockViewModel: ObservableObject {
     private var metronome: MetronomeProtocol
     private let calendar: Calendar
     private let dateFormatter: DateFormatter
-    private var hours: Int?
-    private var minutes: Int?
-    private var seconds: Int?
+    private var hour: Int?
+    private var minute: Int?
+    private var second: Int?
 
     init(engine: ClockEngine, timeProvider: TimeProviderProtocol, metronome: MetronomeProtocol, calendar: Calendar, dateFormatter: DateFormatter) {
         self.engine = engine
@@ -49,28 +49,28 @@ private extension ClockViewModel {
     func tick() {
         let time = timeProvider.now
         let components = calendar.dateComponents([.second, .hour, .minute], from: time)
-        let hours = components.hour ?? 0
-        let minutes = components.minute ?? 0
-        let seconds = components.second ?? 0
+        let hour = components.hour ?? 0
+        let minute = components.minute ?? 0
+        let second = components.second ?? 0
 
-        if seconds != self.seconds {
-            secondsLamp = engine.computeSecondsLamp(seconds: seconds)
+        if second != self.second {
+            secondsLamp = engine.computeSecondsLamp(second: second)
         }
 
-        if hours != self.hours {
-            fiveHourRow = engine.computeFiveHourRow(hours: hours)
-            oneHourRow = engine.computeOneHourRow(hours: hours)
+        if hour != self.hour {
+            fiveHourRow = engine.computeFiveHourRow(hour: hour)
+            oneHourRow = engine.computeOneHourRow(hour: hour)
         }
 
-        if minutes != self.minutes {
-            fiveMinuteRow = engine.computeFiveMinuteRow(minutes: minutes)
-            oneMinuteRow = engine.computeOneMinuteRow(minutes: minutes)
+        if minute != self.minute {
+            fiveMinuteRow = engine.computeFiveMinuteRow(minute: minute)
+            oneMinuteRow = engine.computeOneMinuteRow(minute: minute)
         }
 
         timeText = dateFormatter.string(from: time)
 
-        self.hours = hours
-        self.minutes = minutes
-        self.seconds = seconds
+        self.hour = hour
+        self.minute = minute
+        self.second = second
     }
 }
