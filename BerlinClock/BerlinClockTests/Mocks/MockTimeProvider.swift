@@ -13,7 +13,11 @@ struct MockTimeProvider: TimeProviderProtocol {
 
     init(hour: Int, minute: Int, second: Int) {
         let calendar = Calendar.current
-        let components = DateComponents(calendar: calendar, hour: hour, minute: minute, second: second)
+        var components = calendar.dateComponents([.year, .month, .day], from: Date.now)
+        components.hour = hour
+        components.minute = minute
+        components.second = second
+        components.nanosecond = 0
         now = calendar.date(from: components) ?? Date.now
     }
 }
