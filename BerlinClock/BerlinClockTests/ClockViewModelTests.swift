@@ -107,6 +107,58 @@ struct ClockViewModelTests {
         }
     }
 
+    @Test("Five-Minute row doesn't update when minute is the same")
+    func testFiveMinuteRowNotUpdatedOnEveryTick() {
+        let timeProvider: MockTimeProvider = MockTimeProvider(hour: 9, minute: 41, second: 0)
+        let metronome = MockMetronome()
+        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        viewModel.start() // 00:00:00
+        metronome.tick() // 09:41:00
+
+        var rowUpdates: [[LampColor]] = []
+        let originalRow = viewModel.fiveMinuteRow
+        let cancellable = viewModel.$fiveMinuteRow.sink { rowUpdates.append($0) }
+
+        timeProvider.advance(by: 1)
+        metronome.tick() // 09:41:01
+        timeProvider.advance(by: 1)
+        metronome.tick() // 09:41:02
+
+        cancellable.cancel()
+
+        #expect(rowUpdates.count == 1)
+
+        if let row = rowUpdates.first {
+            #expect(row == originalRow)
+        }
+    }
+
+    @Test("One-Minute row doesn't update when minute is the same")
+    func testOneMinuteRowNotUpdatedOnEveryTick() {
+        let timeProvider: MockTimeProvider = MockTimeProvider(hour: 9, minute: 41, second: 0)
+        let metronome = MockMetronome()
+        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        viewModel.start() // 00:00:00
+        metronome.tick() // 09:41:00
+
+        var rowUpdates: [[LampColor]] = []
+        let originalRow = viewModel.oneMinuteRow
+        let cancellable = viewModel.$oneMinuteRow.sink { rowUpdates.append($0) }
+
+        timeProvider.advance(by: 1)
+        metronome.tick() // 09:41:01
+        timeProvider.advance(by: 1)
+        metronome.tick() // 09:41:02
+
+        cancellable.cancel()
+
+        #expect(rowUpdates.count == 1)
+
+        if let row = rowUpdates.first {
+            #expect(row == originalRow)
+        }
+    }
+
     @Test("Second Lamp doesn't update when second is the same")
     func testSecondLampNotUpdatedOnEveryTick() {
         let timeProvider: MockTimeProvider = MockTimeProvider(hour: 9, minute: 41, second: 0)
