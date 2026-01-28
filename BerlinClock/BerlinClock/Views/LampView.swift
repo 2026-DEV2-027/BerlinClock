@@ -10,12 +10,19 @@ import SwiftUI
 struct LampView: View {
     let lampColor: LampColor
     let isCircle: Bool
+    @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
 
     var body: some View {
         shape
             .fill(lampColor.color)
             .overlay {
                 shape.stroke(.gray, lineWidth: 2)
+            }
+            .overlay {
+                if differentiateWithoutColor && lampColor != .off {
+                    ColorBlindOverlay(pattern: lampColor == .yellow ? .striped : .crossed)
+                        .clipShape(shape)
+                }
             }
     }
 

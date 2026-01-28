@@ -260,19 +260,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "🌙 Try out dark mode"
+            "value" : "🟢🔴 Try out colorblind mode"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "🌙 Essayez le mode Sombre"
+            "value" : "🟢🔴 Essayez le mode daltonien"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "🌙 Probeer ook Dark mode"
+            "value" : "🟢🔴 Probeer kleurenblind modus"
           }
         }
       }
