@@ -58,16 +58,19 @@ private extension ClockViewModel {
 
         if second != self.second {
             secondsLamp = engine.computeSecondsLamp(second: second)
+            accessibilitySecond = LocalizedStringResource.accessibilityTimeSecond(second: second)
         }
 
         if hour != self.hour {
             fiveHourRow = engine.computeFiveHourRow(hour: hour)
             oneHourRow = engine.computeOneHourRow(hour: hour)
+            accessibilityHour = accessibilityLabelForHours(hours: hour)
         }
 
         if minute != self.minute {
             fiveMinuteRow = engine.computeFiveMinuteRow(minute: minute)
             oneMinuteRow = engine.computeOneMinuteRow(minute: minute)
+            accessibilityMinute = LocalizedStringResource.accessibilityTimeMinute(minute: minute)
         }
 
         timeText = dateFormatter.string(from: time)
@@ -75,5 +78,16 @@ private extension ClockViewModel {
         self.hour = hour
         self.minute = minute
         self.second = second
+    }
+
+    func accessibilityLabelForHours(hours: Int) -> LocalizedStringResource {
+        switch hours {
+        case 0:
+            LocalizedStringResource.accessibilityTimeHourMidnight
+        case 12:
+            LocalizedStringResource.accessibilityTimeHourNoon
+        default:
+            LocalizedStringResource.accessibilityTimeHour(hour: hours)
+        }
     }
 }
