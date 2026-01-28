@@ -21,38 +21,33 @@ struct ClockView: View {
 
             Spacer()
 
-            Circle()
-                .foregroundStyle(viewModel.secondsLamp.color)
+            LampView(lampColor: viewModel.secondsLamp, isCircle: true)
                 .frame(height: 80)
 
             HStack {
                 ForEach(viewModel.fiveHourRow.indices, id: \.self) { index in
-                    Rectangle()
-                        .foregroundStyle(viewModel.fiveHourRow[index].color)
+                    LampView(lampColor: viewModel.fiveHourRow[index], isCircle: false)
                 }
             }
             .frame(height: 40)
 
             HStack {
                 ForEach(viewModel.oneHourRow.indices, id: \.self) { index in
-                    Rectangle()
-                        .foregroundStyle(viewModel.oneHourRow[index].color)
+                    LampView(lampColor: viewModel.oneHourRow[index], isCircle: false)
                 }
             }
             .frame(height: 40)
 
             HStack {
                 ForEach(viewModel.fiveMinuteRow.indices, id: \.self) { index in
-                    Rectangle()
-                        .foregroundStyle(viewModel.fiveMinuteRow[index].color)
+                    LampView(lampColor: viewModel.fiveMinuteRow[index], isCircle: false)
                 }
             }
             .frame(height: 40)
 
             HStack {
                 ForEach(viewModel.oneMinuteRow.indices, id: \.self) { index in
-                    Rectangle()
-                        .foregroundStyle(viewModel.oneMinuteRow[index].color)
+                    LampView(lampColor: viewModel.oneMinuteRow[index], isCircle: false)
                 }
             }
             .frame(height: 40)
