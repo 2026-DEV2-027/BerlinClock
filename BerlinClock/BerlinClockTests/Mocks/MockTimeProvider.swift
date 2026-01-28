@@ -5,8 +5,8 @@
 //  Created by 2026-DEV2-027 on 26/01/2026.
 //
 
-import Foundation
 @testable import BerlinClock
+import Foundation
 
 class MockTimeProvider: TimeProviderProtocol {
     var now: Date

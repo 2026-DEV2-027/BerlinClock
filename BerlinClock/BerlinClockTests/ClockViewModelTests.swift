@@ -5,10 +5,10 @@
 //  Created by 2026-DEV2-027 on 25/01/2026.
 //
 
+@testable import BerlinClock
 import Combine
 import Foundation
 import Testing
-@testable import BerlinClock
 
 @MainActor
 struct ClockViewModelTests {

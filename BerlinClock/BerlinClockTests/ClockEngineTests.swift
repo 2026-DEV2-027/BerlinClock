@@ -5,8 +5,8 @@
 //  Created by 2026-DEV2-027 on 26/01/2026.
 //
 
-import Testing
 @testable import BerlinClock
+import Testing
 
 @MainActor
 struct ClockEngineTests {
