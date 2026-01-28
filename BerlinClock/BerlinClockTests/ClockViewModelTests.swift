@@ -234,4 +234,40 @@ struct ClockViewModelTests {
 
         #expect(sut.timeText == "00:41:00")
     }
+
+    @Test("Hour accessibility translates to current hour")
+    func testVoiceOverHour() {
+        let timeProvider = MockTimeProvider(hour: 9, minute: 41, second: 0)
+        let metronome: MockMetronome = MockMetronome()
+
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        sut.start()
+        metronome.tick()
+
+        #expect(sut.accessibilityHour.key == "accessibility.time.hour")
+    }
+
+    @Test("Hour accessibility translates to midnight when hour is 0")
+    func testVoiceOverMidnight() {
+        let timeProvider = MockTimeProvider(hour: 0, minute: 0, second: 0)
+        let metronome: MockMetronome = MockMetronome()
+
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        sut.start()
+        metronome.tick()
+
+        #expect(sut.accessibilityHour.key == "accessibility.time.hour.midnight")
+    }
+
+    @Test("Hour accessibility translates to noon when hour is 12")
+    func testVoiceOverNoon() {
+        let timeProvider = MockTimeProvider(hour: 12, minute: 0, second: 0)
+        let metronome: MockMetronome = MockMetronome()
+
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        sut.start()
+        metronome.tick()
+
+        #expect(sut.accessibilityHour.key == "accessibility.time.hour.noon")
+    }
 }

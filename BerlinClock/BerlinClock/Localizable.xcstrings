@@ -1,7 +1,10 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "accessibility.time.hours" : {
+    "" : {
+
+    },
+    "accessibility.time.hour" : {
       "comment" : "The current hour. Used for VoiceOver.",
       "extractionState" : "manual",
       "localizations" : {
@@ -11,13 +14,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d hour"
+                  "value" : "%1$(hour)lld hour"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d hours"
+                  "value" : "%1$(hour)lld hours"
                 }
               }
             }
@@ -29,13 +32,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d heure"
+                  "value" : "%1$(hour)lld heure"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d heures"
+                  "value" : "%1$(hour)lld heures"
                 }
               }
             }
@@ -47,13 +50,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d uur"
+                  "value" : "%1$(hour)lld uur"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d uur"
+                  "value" : "%1$(hour)lld uur"
                 }
               }
             }
@@ -61,7 +64,7 @@
         }
       }
     },
-    "accessibility.time.hours.midnight" : {
+    "accessibility.time.hour.midnight" : {
       "comment" : "Midnight. Used for VoiceOver.",
       "extractionState" : "manual",
       "localizations" : {
@@ -85,7 +88,7 @@
         }
       }
     },
-    "accessibility.time.hours.noon" : {
+    "accessibility.time.hour.noon" : {
       "comment" : "Noon. Used for VoiceOver.",
       "extractionState" : "manual",
       "localizations" : {
@@ -109,7 +112,7 @@
         }
       }
     },
-    "accessibility.time.minutes" : {
+    "accessibility.time.minute" : {
       "comment" : "The current minute. Used for VoiceOver.",
       "extractionState" : "manual",
       "localizations" : {
@@ -119,13 +122,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d minute"
+                  "value" : "%1$(minute)lld minute"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d minutes"
+                  "value" : "%1$(minute)lld minutes"
                 }
               }
             }
@@ -137,13 +140,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d minute"
+                  "value" : "%1$(minute)lld minute"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d minutes"
+                  "value" : "%1$(minute)lld minutes"
                 }
               }
             }
@@ -155,13 +158,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d minuut"
+                  "value" : "%1$(minute)lld minuut"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d minuten"
+                  "value" : "%1$(minute)lld minuten"
                 }
               }
             }
@@ -169,7 +172,7 @@
         }
       }
     },
-    "accessibility.time.seconds" : {
+    "accessibility.time.second" : {
       "comment" : "The current second. Used for VoiceOver.",
       "extractionState" : "manual",
       "localizations" : {
@@ -179,13 +182,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d second"
+                  "value" : "%1$(second)lld second"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d seconds"
+                  "value" : "%1$(second)lld seconds"
                 }
               }
             }
@@ -197,13 +200,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d seconde"
+                  "value" : "%1$(second)lld seconde"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d secondes"
+                  "value" : "%1$(second)lld secondes"
                 }
               }
             }
@@ -215,13 +218,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d seconde"
+                  "value" : "%1$(second)lld seconde"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%d seconden"
+                  "value" : "%1$(second)lld seconden"
                 }
               }
             }

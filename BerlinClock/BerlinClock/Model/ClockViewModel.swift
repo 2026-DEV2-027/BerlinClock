@@ -16,6 +16,9 @@ class ClockViewModel: ObservableObject {
     @Published var fiveMinuteRow: [LampColor] = Array(repeating: .off, count: 11)
     @Published var oneMinuteRow: [LampColor] = Array(repeating: .off, count: 4)
     @Published var timeText: String = "00:00:00"
+    @Published var accessibilityHour = LocalizedStringResource(stringLiteral: "")
+    @Published var accessibilityMinute = LocalizedStringResource(stringLiteral: "")
+    @Published var accessibilitySecond = LocalizedStringResource(stringLiteral: "")
 
     private let engine: ClockEngine
     private let timeProvider: TimeProviderProtocol
