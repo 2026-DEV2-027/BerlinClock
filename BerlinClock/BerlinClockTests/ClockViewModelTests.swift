@@ -5,6 +5,7 @@
 //  Created by 2026-DEV2-027 on 25/01/2026.
 //
 
+import Combine
 import Foundation
 import Testing
 @testable import BerlinClock
@@ -52,6 +53,30 @@ struct ClockViewModelTests {
         metronome.tick()
 
         #expect(viewModel.timeText == "16:44:11")
+    }
+
+    @Test("Second Lamp doesn't update when second is the same")
+    func testSecondLampNotUpdatedOnEveryTick() {
+        let timeProvider: MockTimeProvider = MockTimeProvider(hour: 9, minute: 41, second: 0)
+        let metronome = MockMetronome()
+        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        viewModel.start() // 00:00:00
+        metronome.tick() // 09:41:00
+
+        var colorUpdates: [LampColor] = []
+        let originalColor = viewModel.secondsLamp
+        let cancellable = viewModel.$secondsLamp.sink { colorUpdates.append($0) }
+
+        metronome.tick() // 09:41:00
+        metronome.tick() // 09:41:00
+
+        cancellable.cancel()
+
+        #expect(colorUpdates.count == 1)
+
+        if let color = colorUpdates.first {
+            #expect(color == originalColor)
+        }
     }
 
     @Test("Starting ViewModel starts the metronome")
