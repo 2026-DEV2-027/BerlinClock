@@ -23,6 +23,7 @@ class ClockViewModel: ObservableObject {
     private let calendar: Calendar
     private let dateFormatter: DateFormatter
     private var hours: Int?
+    private var minutes: Int?
     private var seconds: Int?
 
     init(engine: ClockEngine, timeProvider: TimeProviderProtocol, metronome: MetronomeProtocol, calendar: Calendar, dateFormatter: DateFormatter) {
@@ -61,12 +62,15 @@ private extension ClockViewModel {
             oneHourRow = engine.computeOneHourRow(hours: hours)
         }
 
-        fiveMinuteRow = engine.computeFiveMinuteRow(minutes: minutes)
-        oneMinuteRow = engine.computeOneMinuteRow(minutes: minutes)
+        if minutes != self.minutes {
+            fiveMinuteRow = engine.computeFiveMinuteRow(minutes: minutes)
+            oneMinuteRow = engine.computeOneMinuteRow(minutes: minutes)
+        }
 
         timeText = dateFormatter.string(from: time)
 
         self.hours = hours
+        self.minutes = minutes
         self.seconds = seconds
     }
 }
