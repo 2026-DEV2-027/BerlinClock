@@ -8,7 +8,7 @@
 import Foundation
 @testable import BerlinClock
 
-struct MockTimeProvider: TimeProviderProtocol {
+class MockTimeProvider: TimeProviderProtocol {
     var now: Date
 
     init(hour: Int, minute: Int, second: Int) {
@@ -19,5 +19,9 @@ struct MockTimeProvider: TimeProviderProtocol {
         components.second = second
         components.nanosecond = 0
         now = calendar.date(from: components) ?? Date.now
+    }
+
+    func advance(by seconds: Int) {
+        now.addTimeInterval(TimeInterval(seconds))
     }
 }
