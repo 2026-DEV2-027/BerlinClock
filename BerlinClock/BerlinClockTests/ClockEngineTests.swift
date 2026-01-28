@@ -8,6 +8,7 @@
 import Testing
 @testable import BerlinClock
 
+@MainActor
 struct ClockEngineTests {
     let clockEngine = ClockEngine()
 
