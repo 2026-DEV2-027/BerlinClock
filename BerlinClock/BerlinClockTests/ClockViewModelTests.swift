@@ -14,58 +14,58 @@ import Testing
 struct ClockViewModelTests {
     @Test("All lamps are off at init")
     func testLampsAreOffAtInit() {
-        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: MockMetronome(), calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: MockMetronome(), calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
 
-        #expect(viewModel.secondsLamp == .off)
-        #expect(viewModel.fiveHourRow == [.off, .off, .off, .off])
-        #expect(viewModel.oneHourRow == [.off, .off, .off, .off])
-        #expect(viewModel.fiveMinuteRow == [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off])
-        #expect(viewModel.oneMinuteRow == [.off, .off, .off, .off])
+        #expect(sut.secondsLamp == .off)
+        #expect(sut.fiveHourRow == [.off, .off, .off, .off])
+        #expect(sut.oneHourRow == [.off, .off, .off, .off])
+        #expect(sut.fiveMinuteRow == [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off])
+        #expect(sut.oneMinuteRow == [.off, .off, .off, .off])
     }
 
     @Test("Time text is midnight at init")
     func testTimeTextIsMidnightAtInit() {
-        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: MockMetronome(), calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: MockMetronome(), calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
 
-        #expect(viewModel.timeText == "00:00:00")
+        #expect(sut.timeText == "00:00:00")
     }
 
     @Test("Lamps are adapted after first tick")
     func testLampsAfterTick() {
         let metronome = MockMetronome()
-        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: MockTimeProvider(hour: 8, minute: 16, second: 0), metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: MockTimeProvider(hour: 8, minute: 16, second: 0), metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
 
-        viewModel.start()
+        sut.start()
         metronome.tick()
 
-        #expect(viewModel.secondsLamp == .red)
-        #expect(viewModel.fiveHourRow == [.red, .off, .off, .off])
-        #expect(viewModel.oneHourRow == [.red, .red, .red, .off])
-        #expect(viewModel.fiveMinuteRow == [.yellow, .yellow, .red, .off, .off, .off, .off, .off, .off, .off, .off])
-        #expect(viewModel.oneMinuteRow == [.yellow, .off, .off, .off])
+        #expect(sut.secondsLamp == .red)
+        #expect(sut.fiveHourRow == [.red, .off, .off, .off])
+        #expect(sut.oneHourRow == [.red, .red, .red, .off])
+        #expect(sut.fiveMinuteRow == [.yellow, .yellow, .red, .off, .off, .off, .off, .off, .off, .off, .off])
+        #expect(sut.oneMinuteRow == [.yellow, .off, .off, .off])
     }
 
     @Test("Time text is adapted after first tick")
     func testTimeTextAfterTick() {
         let metronome = MockMetronome()
-        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: MockTimeProvider(hour: 16, minute: 44, second: 11), metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
-        viewModel.start()
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: MockTimeProvider(hour: 16, minute: 44, second: 11), metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        sut.start()
         metronome.tick()
 
-        #expect(viewModel.timeText == "16:44:11")
+        #expect(sut.timeText == "16:44:11")
     }
 
     @Test("Five-Hour row doesn't update when hour is the same")
     func testFiveHourRowNotUpdatedOnEveryTick() {
         let timeProvider: MockTimeProvider = MockTimeProvider(hour: 9, minute: 41, second: 0)
         let metronome = MockMetronome()
-        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
-        viewModel.start() // 00:00:00
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        sut.start() // 00:00:00
         metronome.tick() // 09:41:00
 
         var rowUpdates: [[LampColor]] = []
-        let originalRow = viewModel.fiveHourRow
-        let cancellable = viewModel.$fiveHourRow.sink { rowUpdates.append($0) }
+        let originalRow = sut.fiveHourRow
+        let cancellable = sut.$fiveHourRow.sink { rowUpdates.append($0) }
 
         timeProvider.advance(by: 1)
         metronome.tick() // 09:41:01
@@ -85,13 +85,13 @@ struct ClockViewModelTests {
     func testOneHourRowNotUpdatedOnEveryTick() {
         let timeProvider: MockTimeProvider = MockTimeProvider(hour: 9, minute: 41, second: 0)
         let metronome = MockMetronome()
-        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
-        viewModel.start() // 00:00:00
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        sut.start() // 00:00:00
         metronome.tick() // 09:41:00
 
         var rowUpdates: [[LampColor]] = []
-        let originalRow = viewModel.oneHourRow
-        let cancellable = viewModel.$oneHourRow.sink { rowUpdates.append($0) }
+        let originalRow = sut.oneHourRow
+        let cancellable = sut.$oneHourRow.sink { rowUpdates.append($0) }
 
         timeProvider.advance(by: 1)
         metronome.tick() // 09:41:01
@@ -111,13 +111,13 @@ struct ClockViewModelTests {
     func testFiveMinuteRowNotUpdatedOnEveryTick() {
         let timeProvider: MockTimeProvider = MockTimeProvider(hour: 9, minute: 41, second: 0)
         let metronome = MockMetronome()
-        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
-        viewModel.start() // 00:00:00
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        sut.start() // 00:00:00
         metronome.tick() // 09:41:00
 
         var rowUpdates: [[LampColor]] = []
-        let originalRow = viewModel.fiveMinuteRow
-        let cancellable = viewModel.$fiveMinuteRow.sink { rowUpdates.append($0) }
+        let originalRow = sut.fiveMinuteRow
+        let cancellable = sut.$fiveMinuteRow.sink { rowUpdates.append($0) }
 
         timeProvider.advance(by: 1)
         metronome.tick() // 09:41:01
@@ -137,13 +137,13 @@ struct ClockViewModelTests {
     func testOneMinuteRowNotUpdatedOnEveryTick() {
         let timeProvider: MockTimeProvider = MockTimeProvider(hour: 9, minute: 41, second: 0)
         let metronome = MockMetronome()
-        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
-        viewModel.start() // 00:00:00
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        sut.start() // 00:00:00
         metronome.tick() // 09:41:00
 
         var rowUpdates: [[LampColor]] = []
-        let originalRow = viewModel.oneMinuteRow
-        let cancellable = viewModel.$oneMinuteRow.sink { rowUpdates.append($0) }
+        let originalRow = sut.oneMinuteRow
+        let cancellable = sut.$oneMinuteRow.sink { rowUpdates.append($0) }
 
         timeProvider.advance(by: 1)
         metronome.tick() // 09:41:01
@@ -163,13 +163,13 @@ struct ClockViewModelTests {
     func testSecondLampNotUpdatedOnEveryTick() {
         let timeProvider: MockTimeProvider = MockTimeProvider(hour: 9, minute: 41, second: 0)
         let metronome = MockMetronome()
-        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
-        viewModel.start() // 00:00:00
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        sut.start() // 00:00:00
         metronome.tick() // 09:41:00
 
         var colorUpdates: [LampColor] = []
-        let originalColor = viewModel.secondsLamp
-        let cancellable = viewModel.$secondsLamp.sink { colorUpdates.append($0) }
+        let originalColor = sut.secondsLamp
+        let cancellable = sut.$secondsLamp.sink { colorUpdates.append($0) }
 
         metronome.tick() // 09:41:00
         metronome.tick() // 09:41:00
@@ -186,9 +186,9 @@ struct ClockViewModelTests {
     @Test("Starting ViewModel starts the metronome")
     func testStartCallsMetronomeStart() {
         let metronome = MockMetronome()
-        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
 
-        viewModel.start()
+        sut.start()
 
         #expect(metronome.isRunning)
     }
@@ -196,9 +196,9 @@ struct ClockViewModelTests {
     @Test("Stopping ViewModel stops the metronome")
     func testStopCallsMetronomeStop() {
         let metronome = MockMetronome()
-        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
 
-        viewModel.stop()
+        sut.stop()
 
         #expect(!metronome.isRunning)
     }
@@ -212,11 +212,11 @@ struct ClockViewModelTests {
         if let timeZone = TimeZone(identifier: "Asia/Tokyo") {
             tokyoCalendar.timeZone = timeZone
         }
-        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: tokyoCalendar, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: tokyoCalendar))
-        viewModel.start()
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: tokyoCalendar, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: tokyoCalendar))
+        sut.start()
         metronome.tick()
 
-        #expect(viewModel.timeText == "17:41:00")
+        #expect(sut.timeText == "17:41:00")
     }
 
     @Test("L.A. timezone clock")
@@ -228,10 +228,10 @@ struct ClockViewModelTests {
         if let timeZone = TimeZone(identifier: "America/Los_Angeles") {
             losAngelesCalendar.timeZone = timeZone
         }
-        let viewModel = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: losAngelesCalendar, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: losAngelesCalendar))
-        viewModel.start()
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: losAngelesCalendar, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: losAngelesCalendar))
+        sut.start()
         metronome.tick()
 
-        #expect(viewModel.timeText == "00:41:00")
+        #expect(sut.timeText == "00:41:00")
     }
 }

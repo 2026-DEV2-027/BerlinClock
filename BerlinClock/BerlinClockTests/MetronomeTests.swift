@@ -14,11 +14,11 @@ struct MetronomeTests {
     @Test("onTick closure is called when the scheduler fires")
     func testOnTickClosureCalledWhenSchedulerFires() {
         let mockScheduler = MockScheduler()
-        let metronome = SystemMetronome(scheduler: mockScheduler)
+        let sut = SystemMetronome(scheduler: mockScheduler)
         var isSchedulerCalled = false
 
-        metronome.onTick = { isSchedulerCalled = true }
-        metronome.start()
+        sut.onTick = { isSchedulerCalled = true }
+        sut.start()
         mockScheduler.scheduledTimer?.fire()
 
         #expect(isSchedulerCalled)
