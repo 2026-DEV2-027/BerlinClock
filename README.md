@@ -12,6 +12,10 @@ Alternatively, run the app on a simulator or device. You may need to set your ow
 
 ## Kata considerations
 
+### Commit style
+
+In the spirit of working with an automated CI/CD, all commits must contain a project that compiles. However, when developing a test case prior to the feature, the test will fail even if the project compiles. Commits with failing test cases are marked with a '🔴' emoji in the commit message. When the project has been adapted for the test to pass, the next commit message has an identical message, but this time with a '🟢' emoji.
+
 ### Input trust
 
 `ClockEngine` functions assume the hours, minutes and seconds are valid within their time unit ranges of a typical time.
