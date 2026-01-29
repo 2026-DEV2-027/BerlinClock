@@ -18,39 +18,50 @@ struct ClockView: View {
         VStack {
             Text(instructions)
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+                .lineLimit(nil)
 
             Spacer()
 
             LampView(lampColor: viewModel.secondsLamp, isCircle: true)
                 .frame(height: 80)
+                .accessibilityLabel(viewModel.accessibilitySecond)
 
-            HStack {
-                ForEach(viewModel.fiveHourRow.indices, id: \.self) { index in
-                    LampView(lampColor: viewModel.fiveHourRow[index], isCircle: false)
+            VStack {
+                HStack {
+                    ForEach(viewModel.fiveHourRow.indices, id: \.self) { index in
+                        LampView(lampColor: viewModel.fiveHourRow[index], isCircle: false)
+                    }
                 }
-            }
-            .frame(height: 40)
+                .frame(height: 40)
 
-            HStack {
-                ForEach(viewModel.oneHourRow.indices, id: \.self) { index in
-                    LampView(lampColor: viewModel.oneHourRow[index], isCircle: false)
+                HStack {
+                    ForEach(viewModel.oneHourRow.indices, id: \.self) { index in
+                        LampView(lampColor: viewModel.oneHourRow[index], isCircle: false)
+                    }
                 }
+                .frame(height: 40)
             }
-            .frame(height: 40)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(viewModel.accessibilityHour)
 
-            HStack {
-                ForEach(viewModel.fiveMinuteRow.indices, id: \.self) { index in
-                    LampView(lampColor: viewModel.fiveMinuteRow[index], isCircle: false)
+            VStack {
+                HStack {
+                    ForEach(viewModel.fiveMinuteRow.indices, id: \.self) { index in
+                        LampView(lampColor: viewModel.fiveMinuteRow[index], isCircle: false)
+                    }
                 }
-            }
-            .frame(height: 40)
+                .frame(height: 40)
 
-            HStack {
-                ForEach(viewModel.oneMinuteRow.indices, id: \.self) { index in
-                    LampView(lampColor: viewModel.oneMinuteRow[index], isCircle: false)
+                HStack {
+                    ForEach(viewModel.oneMinuteRow.indices, id: \.self) { index in
+                        LampView(lampColor: viewModel.oneMinuteRow[index], isCircle: false)
+                    }
                 }
+                .frame(height: 40)
             }
-            .frame(height: 40)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(viewModel.accessibilityMinute)
 
             Spacer()
 
@@ -73,7 +84,8 @@ private extension ClockView {
     var instructions: LocalizedStringResource {
         switch SwiftUIViewRunner.current {
         case .preview: .clockInstructionsPreview
-        case .simulator, .device: .clockInstructionsSimulator
+        case .simulator: .clockInstructionsSimulator
+        case .device: .clockInstructionsDevice
         }
     }
 }

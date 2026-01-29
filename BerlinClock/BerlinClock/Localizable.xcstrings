@@ -232,6 +232,30 @@
         }
       }
     },
+    "clock.instructions.device" : {
+      "comment" : "Text on top of the Clock view when on a real device",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🔊 Try with VoiceOver"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🔊 Essayez avec VoiceOver"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🔊 Probeer met VoiceOver"
+          }
+        }
+      }
+    },
     "clock.instructions.preview" : {
       "comment" : "Text on top of the Clock view when in Xcode Preview",
       "extractionState" : "manual",
