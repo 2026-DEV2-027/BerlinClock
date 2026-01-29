@@ -48,13 +48,13 @@ In order to prevent unnecessary computing, the hour and minute rows are computed
 
 There is no text to display in this Kata, but other accessibility measures can be taken through color management. Those implementations can be seen through the SwiftUI Previews of `ClockView` or by running the app on an iOS device or Simulator and editing accessibility settings.
 
-<img src="assets/dark-mode.png" width="200">
+<img src="assets/dark-mode.png" width="300">
 
-<img src="assets/color-blind.png" height="200">
+<img src="assets/color-blind.png" height="300">
 
-<img src="assets/big-font-portrait.png" width="200">
+<img src="assets/big-font-portrait.png" width="300">
 
-<img src="assets/big-font-landscape.png" height="200">
+<img src="assets/big-font-landscape.png" height="300">
 
 ### Usage of AI
 
