@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Provides a `now` value.
 protocol TimeProviderProtocol {
     var now: Date { get }
 }

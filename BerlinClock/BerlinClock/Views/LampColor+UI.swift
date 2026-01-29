@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Helper extension to link to the right color asset.
 extension LampColor {
     var color: Color {
         switch self {

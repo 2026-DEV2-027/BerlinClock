@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Provides an `onTick` closure that syncs with the next rounded second, and calls `onTick` once per second from then.
 class SystemMetronome: MetronomeProtocol {
     var onTick: (() -> Void)?
     private let scheduler: TimerScheduler

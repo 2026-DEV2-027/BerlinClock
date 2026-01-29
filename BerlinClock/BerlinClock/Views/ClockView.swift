@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+/// The main clock view of the Berlin Clock.
+///
+/// There are instructions at the top that varies on the target type, the clock UI in the middle, and the current time as text at the bottom.
+/// When in landscape orientation, the clock is at the top, the instructions at the bottom, and the time is displayed on the bottom right of the clock.
+///
+/// When using VoiceOver, the prononciations are grouped per time unit and not per row.
 struct ClockView: View {
     @StateObject var viewModel: ClockViewModel
     @Environment(\.verticalSizeClass) var verticalSizeClass

@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Provides the system's time in the `now` value.
 struct SystemTimeProvider: TimeProviderProtocol {
     var now: Date { Date() }
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Represents a Berlin Clock lamp. It can be either a circle or a rectangle, and has a color defined in `lampColor`.
 struct LampView: View {
     let lampColor: LampColor
     let isCircle: Bool

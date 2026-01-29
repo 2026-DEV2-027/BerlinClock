@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+/// Provides view states for the ClockView and updates based on its `timeProvider` and `metronome` values.
 @MainActor
 class ClockViewModel: ObservableObject {
     @Published var secondsLamp: LampColor = .off

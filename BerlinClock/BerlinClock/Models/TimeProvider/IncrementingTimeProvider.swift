@@ -7,6 +7,9 @@
 
 import Foundation
 
+/// At initialization the `now` value is the system's time. On each access, `now` is incremented by 1 second regardless of the system's time.
+///
+/// This is useful for mocking the speed of time passing.
 class IncrementingTimeProvider: TimeProviderProtocol {
     private var current = Date()
 

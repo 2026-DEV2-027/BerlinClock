@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Provides an `onTick` closure that calls `onTick` at an interval set by `timeInterval`.
 class CustomMetronome: MetronomeProtocol {
     var onTick: (() -> Void)?
     private var timer: Timer?
