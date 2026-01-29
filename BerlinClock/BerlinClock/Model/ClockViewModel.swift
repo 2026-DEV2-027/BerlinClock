@@ -57,19 +57,19 @@ private extension ClockViewModel {
         let second = components.second ?? 0
 
         if second != self.second {
-            secondsLamp = engine.computeSecondsLamp(second: second)
+            secondsLamp = engine.computeSecondsLamp(for: second)
             accessibilitySecond = LocalizedStringResource.accessibilityTimeSecond(second: second)
         }
 
         if hour != self.hour {
-            fiveHourRow = engine.computeFiveHourRow(hour: hour)
-            oneHourRow = engine.computeOneHourRow(hour: hour)
-            accessibilityHour = accessibilityLabelForHours(hours: hour)
+            fiveHourRow = engine.computeFiveHourRow(for: hour)
+            oneHourRow = engine.computeOneHourRow(for: hour)
+            accessibilityHour = accessibilityLabel(for: hour)
         }
 
         if minute != self.minute {
-            fiveMinuteRow = engine.computeFiveMinuteRow(minute: minute)
-            oneMinuteRow = engine.computeOneMinuteRow(minute: minute)
+            fiveMinuteRow = engine.computeFiveMinuteRow(for: minute)
+            oneMinuteRow = engine.computeOneMinuteRow(for: minute)
             accessibilityMinute = LocalizedStringResource.accessibilityTimeMinute(minute: minute)
         }
 
@@ -80,14 +80,14 @@ private extension ClockViewModel {
         self.second = second
     }
 
-    func accessibilityLabelForHours(hours: Int) -> LocalizedStringResource {
-        switch hours {
+    func accessibilityLabel(for hour: Int) -> LocalizedStringResource {
+        switch hour {
         case 0:
             LocalizedStringResource.accessibilityTimeHourMidnight
         case 12:
             LocalizedStringResource.accessibilityTimeHourNoon
         default:
-            LocalizedStringResource.accessibilityTimeHour(hour: hours)
+            LocalizedStringResource.accessibilityTimeHour(hour: hour)
         }
     }
 }

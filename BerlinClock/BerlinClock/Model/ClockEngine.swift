@@ -10,35 +10,35 @@ struct ClockEngine {
     
     /// Computes the color of the seconds lamp. The lamp is lit in red when the seconds are even and off when the seconds are odd.
     ///
-    /// - Parameter seconds: The seconds part of the time.
+    /// - Parameter seconds: The second part of the time.
     /// - Returns: The lamp color.
-    func computeSecondsLamp(second: Int) -> LampColor {
+    func computeSecondsLamp(for second: Int) -> LampColor {
         return second.isMultiple(of: 2) ? .red : .off
     }
 
     /// Computes the row of colors of the 5-hour lamps. Each lit lamp represents 5 hours.
     ///
-    /// - Parameter seconds: The hour part of the time.
+    /// - Parameter hour: The hour part of the time.
     /// - Returns: The lamp colors.
-    func computeFiveHourRow(hour: Int) -> [LampColor] {
+    func computeFiveHourRow(for hour: Int) -> [LampColor] {
         let activeLamps = hour / 5
         return createRow(totalLamps: 4, activeLamps: activeLamps, color: .red)
     }
 
     /// Computes the row of colors of the 1-hour lamps. Those lamps represents the remaining hours after the 5-hour lamps.
     ///
-    /// - Parameter minutes: The hour part of the time.
+    /// - Parameter hour: The hour part of the time.
     /// - Returns: The lamp colors.
-    func computeOneHourRow(hour: Int) -> [LampColor] {
+    func computeOneHourRow(for hour: Int) -> [LampColor] {
         let activeLamps = hour % 5
         return createRow(totalLamps: 4, activeLamps: activeLamps, color: .red)
     }
 
     /// Computes the row of colors of the 5-minute lamps. Each lit lamp represents 5 minutes and is yellow, and every three lamp is in red instead of yellow.
     ///
-    /// - Parameter minutes: The minute part of the time.
+    /// - Parameter minute: The minute part of the time.
     /// - Returns: The lamp colors.
-    func computeFiveMinuteRow(minute: Int) -> [LampColor] {
+    func computeFiveMinuteRow(for minute: Int) -> [LampColor] {
         let activeLamps = minute / 5
         var row: [LampColor] = []
 
@@ -58,9 +58,9 @@ struct ClockEngine {
 
     /// Computes the row of colors of the 1-minute lamps. Those lamps the last 4 minutes of the hour.
     ///
-    /// - Parameter minutes: The minute part of the time.
+    /// - Parameter minute: The minute part of the time.
     /// - Returns: The lamp colors.
-    func computeOneMinuteRow(minute: Int) -> [LampColor] {
+    func computeOneMinuteRow(for minute: Int) -> [LampColor] {
         let activeLamps = minute % 5
         return createRow(totalLamps: 4, activeLamps: activeLamps, color: .yellow)
     }
