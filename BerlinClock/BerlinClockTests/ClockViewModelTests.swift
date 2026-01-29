@@ -270,4 +270,28 @@ struct ClockViewModelTests {
 
         #expect(sut.accessibilityHour.key == "accessibility.time.hour.noon")
     }
+
+    @Test("Minute accessibility translates to current minute")
+    func testVoiceOverMinute() {
+        let timeProvider = MockTimeProvider(hour: 9, minute: 41, second: 0)
+        let metronome: MockMetronome = MockMetronome()
+
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        sut.start()
+        metronome.tick()
+
+        #expect(sut.accessibilityMinute.key == "accessibility.time.minute")
+    }
+
+    @Test("Second accessibility translates to current second")
+    func testVoiceOverSecond() {
+        let timeProvider = MockTimeProvider(hour: 9, minute: 41, second: 0)
+        let metronome: MockMetronome = MockMetronome()
+
+        let sut = ClockViewModel(engine: ClockEngine(), timeProvider: timeProvider, metronome: metronome, calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current))
+        sut.start()
+        metronome.tick()
+
+        #expect(sut.accessibilitySecond.key == "accessibility.time.second")
+    }
 }
