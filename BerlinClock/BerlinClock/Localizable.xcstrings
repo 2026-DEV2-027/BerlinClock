@@ -239,19 +239,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "🔊 Try with VoiceOver"
+            "value" : "Try 🔊 VoiceOver or ⤵️ Landscape"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "🔊 Essayez avec VoiceOver"
+            "state" : "needs_review",
+            "value" : "Essayez 🔊 VoiceOver et ⤵️ paysage"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "🔊 Probeer met VoiceOver"
+            "state" : "needs_review",
+            "value" : "Probeer 🔊 VoiceOver of ⤵️ Landscape"
           }
         }
       }
@@ -263,19 +263,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "⬆️ Do check the other Previews above ⬆️"
+            "value" : "⬆️ Check all Previews above"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "⬆️ Regardez aussi les autres Previews ⬆️"
+            "value" : "⬆️ Regardez tous les Previews"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "⬆️ Kijk ook de andere Previews ⬆️"
+            "value" : "⬆️ Kijk alle Previews"
           }
         }
       }
@@ -287,18 +287,18 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "🟢🔴 Try out colorblind mode"
+            "value" : "🟢🔴 Try colorblind mode"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "🟢🔴 Essayez le mode daltonien"
+            "value" : "🟢🔴 Essayez en mode daltonien"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "🟢🔴 Probeer kleurenblind modus"
           }
         }

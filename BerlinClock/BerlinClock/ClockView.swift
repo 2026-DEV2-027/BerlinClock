@@ -9,20 +9,46 @@ import SwiftUI
 
 struct ClockView: View {
     @StateObject var viewModel: ClockViewModel
+    @Environment(\.verticalSizeClass) var verticalSizeClass
 
     init(viewModel: ClockViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
     var body: some View {
+        Group {
+            if verticalSizeClass == .regular {
+                VStack {
+                    instructions
+                    Spacer()
+                    clock
+                    Spacer()
+                    time
+                }
+            } else {
+                VStack {
+                    clock
+                        .overlay(alignment: .topTrailing) {
+                            time
+                                .padding()
+                        }
+                    Spacer()
+                    instructions
+                }
+            }
+        }
+        .animation(.default.speed(1.25), value: viewModel.secondsLamp)
+        .padding()
+        .task {
+            viewModel.start()
+        }
+        .onDisappear {
+            viewModel.stop()
+        }
+    }
+
+    var clock: some View {
         VStack {
-            Text(instructions)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-                .lineLimit(nil)
-
-            Spacer()
-
             LampView(lampColor: viewModel.secondsLamp, isCircle: true)
                 .frame(height: 80)
                 .accessibilityLabel(viewModel.accessibilitySecond)
@@ -62,26 +88,25 @@ struct ClockView: View {
             }
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(viewModel.accessibilityMinute)
+        }
+    }
 
-            Spacer()
+    var instructions: some View {
+        Text(localizedInstructions)
+            .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
+            .lineLimit(nil)
+    }
 
-            Text(viewModel.timeText)
-                .font(.largeTitle)
-        }
-        .animation(.default.speed(1.25), value: viewModel.secondsLamp)
-        .padding()
-        .task {
-            viewModel.start()
-        }
-        .onDisappear {
-            viewModel.stop()
-        }
+    var time: some View {
+        Text(viewModel.timeText)
+            .font(.largeTitle)
     }
 }
 
 private extension ClockView {
 
-    var instructions: LocalizedStringResource {
+    var localizedInstructions: LocalizedStringResource {
         switch SwiftUIViewRunner.current {
         case .preview: .clockInstructionsPreview
         case .simulator: .clockInstructionsSimulator
@@ -108,6 +133,12 @@ private extension ClockView {
 #Preview("Dark mode") {
     ClockView(viewModel: ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: SystemMetronome(scheduler: RunLoop.main), calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current)))
         .preferredColorScheme(.dark)
+}
+
+#Preview("Big font") {
+    ClockView(viewModel: ClockViewModel(engine: ClockEngine(), timeProvider: SystemTimeProvider(), metronome: SystemMetronome(scheduler: RunLoop.main), calendar: Calendar.current, dateFormatter: DateFormatter(dateFormat: "HH:mm:ss", calendar: Calendar.current)))
+        .environment(\.locale, .init(identifier: "en"))
+        .dynamicTypeSize(.accessibility5)
 }
 
 #Preview("Fast Clock") {
