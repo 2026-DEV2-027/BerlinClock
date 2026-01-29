@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// A view that displays on a 45° angle either stripes or crossed stripes, used for the option "Differentiate Without Color".
+/// A view that displays a pattern of 45°-angle stripes or crossed stripes, used for the option "Differentiate Without Color".
 struct StripingOverlayView: View {
     enum Pattern {
         case striped
