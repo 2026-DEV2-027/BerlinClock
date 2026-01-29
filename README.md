@@ -1,9 +1,7 @@
 # BerlinClock
 An iOS implementation of the kata https://github.com/stephane-genicot/katas/blob/master/BerlinClock.md
 
-<img src="assets/berlin-clock.png" width="371" height="350">
-
-The commits were written using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), however, the target version remains the same even though conventional commits would normally affect the [semantic versioning](https://semver.org/).
+<img src="assets/berlin-clock.png" height="350">
 
 ## Instructions
 
@@ -17,6 +15,8 @@ Alternatively, run the app on a simulator or device. You may need to set your ow
 ### Commit style
 
 In the spirit of working with an automated CI/CD, all commits must contain a project that compiles. However, when developing a test case prior to the feature, the test will fail even if the project compiles. Commits with failing test cases are marked with a '🔴' emoji in the commit message. When the project has been adapted for the test to pass, the next commit message has an identical message, but this time with a '🟢' emoji.
+
+The commits were written using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), however, the target version remains the same even though conventional commits would normally affect the [semantic versioning](https://semver.org/).
 
 ### Input trust
 
@@ -47,6 +47,14 @@ In order to prevent unnecessary computing, the hour and minute rows are computed
 ### Accessibility
 
 There is no text to display in this Kata, but other accessibility measures can be taken through color management. Those implementations can be seen through the SwiftUI Previews of `ClockView` or by running the app on an iOS device or Simulator and editing accessibility settings.
+
+<img src="assets/dark-mode.png" width="200">
+
+<img src="assets/color-blind.png" height="200">
+
+<img src="assets/big-font-portrait.png" width="200">
+
+<img src="assets/big-font-landscape.png" height="200">
 
 ### Usage of AI
 
