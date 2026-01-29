@@ -20,7 +20,7 @@ struct LampView: View {
             }
             .overlay {
                 if differentiateWithoutColor && lampColor != .off {
-                    ColorBlindOverlay(pattern: lampColor == .yellow ? .striped : .crossed)
+                    StripingOverlayView(pattern: lampColor == .yellow ? .striped : .crossed)
                         .clipShape(shape)
                 }
             }
