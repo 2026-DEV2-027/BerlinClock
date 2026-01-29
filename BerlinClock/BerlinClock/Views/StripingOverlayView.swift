@@ -1,5 +1,5 @@
 //
-//  ColorBlindOverlay.swift
+//  StripingOverlayView.swift
 //  BerlinClock
 //
 //  Created by 2026-DEV2-027 on 28/01/2026.
@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct ColorBlindOverlay: View {
+/// A view that displays on a 45° angle either stripes or crossed stripes, used for the option "Differentiate Without Color".
+struct StripingOverlayView: View {
     enum Pattern {
         case striped
         case crossed
