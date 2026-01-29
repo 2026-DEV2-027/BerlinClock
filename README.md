@@ -1,4 +1,5 @@
 # BerlinClock
+
 An iOS implementation of the kata https://github.com/stephane-genicot/katas/blob/master/BerlinClock.md
 
 <img src="assets/berlin-clock.png" height="350">
@@ -61,11 +62,11 @@ Note: The default value of `Timer.tolerance` is zero, which is as precise as we 
 
 ### Performance
 
-In order to prevent unnecessary computing, the hour and minute rows are computed only if the corresponding hour, minute and second values actually changed since the last clock tick.
+In order to prevent unnecessary computing, the seconds lamp, hour rows and minute rows are computed only if the corresponding values actually changed since the last clock tick.
 
 ### Usage of AI
 
-IA was used for conversational brainstorming, e.g.:
+IA was used for generating the app icon, and for conversational brainstorming, e.g.:
 * Is there a modern, Combine-equivalent of `Timer(fire:)`?
 * What new features are available in Swift Testing compared to XCTest to reduce lines of code?
 * What is a proper commit history to prove usage of TDD in the scope of a Kata?
